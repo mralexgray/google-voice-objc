@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class GVAllSettings;
+
 // Important Constants
 #define SERVICE @"grandcentral"
 
@@ -49,7 +51,8 @@ typedef enum {
 	AccountDeleted,
 	AccountDisabled,
 	ServiceDisabled,
-	ServiceUnavailable
+	ServiceUnavailable,
+	TooManyRedirects
 } ErrorCode;
 
 @interface GVoice : NSObject {
@@ -83,4 +86,6 @@ typedef enum {
 - (BOOL) loginWithCaptchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken;
 
 - (NSString *) errorDescription;
+
+- (GVAllSettings *) getSettings;
 @end

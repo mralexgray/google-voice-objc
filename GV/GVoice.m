@@ -8,6 +8,8 @@
 
 #import "GVoice.h"
 #import "NSString-GVoice.h"
+#import "ParsingUtils.h"
+#import "GVAllSettings.h"
 
 #pragma mark - Private Properties
 @interface GVoice ()
@@ -20,6 +22,7 @@
 
 @implementation GVoice
 
+#pragma mark - Public Properties
 @synthesize accountType = _accountType;
 @synthesize source = _source;
 @synthesize user = _user;
@@ -32,6 +35,7 @@
 @synthesize errorCode = _errorCode;
 @synthesize logToConsole;
 
+#pragma mark - Utility Methods
 - (void) setErrorCodeFromReturnValue: (NSString *) retValue {
 	if ([retValue isEqualToString: @"BadAuthentication"]) {
 		self.errorCode = BadAuthentication;
@@ -88,11 +92,15 @@
 		case ServiceUnavailable:
 			retString = @"The service is not available; try again later.";
 			break;
+		case TooManyRedirects:
+			retString = @"Too many redirects to handle.";
+			break;
 	}
 	
 	return retString;
 }
 
+#pragma mark - Initialization Methods
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source {
 	return [self initWIthUser: user
 					 password: password
@@ -126,6 +134,7 @@
 	return self;
 }
 
+#pragma mark - Login Methods
 - (BOOL) login {
 	return [self loginWithCaptchaResponse: nil captchaToken: nil];
 }
@@ -208,9 +217,101 @@
 	return YES;
 }
 
+#pragma mark - Private Methods
+- (NSString *) getFromUrl: (NSString *) urlString {
+	NSURL *url = [NSURL URLWithString: urlString];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
+	
+	NSString *authString = [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];
+	
+	[request addValue: authString forHTTPHeaderField: @"Authorization"];
+	[request addValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
 
+	// Follow redirects?
+	
+	NSDictionary *fields = [request allHTTPHeaderFields];
+	
+	NSArray *keys = [fields allKeys];
 
+	if (self.logToConsole) {
+		for (NSString *key in keys) {
+			NSLog(@"%@ = %@", key, [fields valueForKey: key]);
+		}
+	}
+	
+	NSHTTPURLResponse *resp = nil;
+	NSError *err = nil;
+	
+	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
+	
+	if (err) {
+		if (self.logToConsole) {
+			NSLog(@"GVoice Fetch Error: %@", err);
+		}
+		
+		self.errorCode = Unknown;
+		
+		return NO;
+	} else {
+		NSInteger statusCode = resp.statusCode;
+		
+		if (statusCode == 200) {
+			NSString *retString = [[[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding] autorelease];
 
+			if (self.logToConsole) {
+				NSLog(@"GVoice Fetch: %@", retString);
+			}
+			
+			return retString;			
+		} else if (statusCode == 301 ||
+				   statusCode == 302 ||
+				   statusCode == 303 ||
+				   statusCode == 307) {
+			self.redirectCounter++;
+			
+			if (self.redirectCounter > MAX_REDIRECTS) {
+				self.redirectCounter = 0;
+				
+				self.errorCode = TooManyRedirects;
+				return nil;
+			}
+			
+			// Need to handle redirect
+			return @"";
+		}
+	}
+	
+	[request release];
+	
+	return @"";
+}
+#pragma mark - Life Cycle Methods
+- (void)dealloc {	
+    [_accountType release], _accountType = nil;
+    [_source release], _source = nil;
+    [_user release], _user = nil;
+    [_password release], _password = nil;
+    [_authToken release], _authToken = nil;
+    [_captchaToken release], _captchaToken = nil;
+    [_captchaUrl release], _captchaUrl = nil;
+    [_captchaUrl2 release], _captchaUrl2 = nil;
+	
+	[super dealloc];
+}
+
+#pragma mark - Google Voice Methods
+- (GVAllSettings *) getSettings {
+	NSString *string = [self getFromUrl: GROUPS_INFO_URL_STRING];
+
+	NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: string
+												  startingWith: @"<json><![CDATA["
+													endingWith: @"]]></json>"
+											   includingTokens: NO];
+	
+	GVAllSettings *allSettings = [[GVAllSettings alloc] initWithJsonString: jsonSubStr];
+
+	return allSettings;
+}
 
 
 

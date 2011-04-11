@@ -18,6 +18,34 @@
 		1777C35B135337C50063DA4E /* GVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C359135337C50063DA4E /* GVoice.h */; };
 		1777C35C135337C50063DA4E /* GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C35A135337C50063DA4E /* GVoice.m */; };
 		1777C35D135337C50063DA4E /* GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C35A135337C50063DA4E /* GVoice.m */; };
+		1777C3641353662C0063DA4E /* ParsingUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C3621353662B0063DA4E /* ParsingUtils.h */; };
+		1777C3651353662C0063DA4E /* ParsingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3631353662B0063DA4E /* ParsingUtils.m */; };
+		1777C3661353662C0063DA4E /* ParsingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3631353662B0063DA4E /* ParsingUtils.m */; };
+		1777C369135368F20063DA4E /* ParsingUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C368135368F20063DA4E /* ParsingUtilsTests.m */; };
+		1777C37E13536E350063DA4E /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C36B13536E350063DA4E /* JSON.h */; };
+		1777C37F13536E350063DA4E /* NSObject+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C36C13536E350063DA4E /* NSObject+JSON.h */; };
+		1777C38013536E350063DA4E /* NSObject+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C36D13536E350063DA4E /* NSObject+JSON.m */; };
+		1777C38113536E350063DA4E /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C36E13536E350063DA4E /* SBJsonParser.h */; };
+		1777C38213536E350063DA4E /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C36F13536E350063DA4E /* SBJsonParser.m */; };
+		1777C38313536E350063DA4E /* SBJsonStreamParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37013536E350063DA4E /* SBJsonStreamParser.h */; };
+		1777C38413536E350063DA4E /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37113536E350063DA4E /* SBJsonStreamParser.m */; };
+		1777C38513536E350063DA4E /* SBJsonStreamParserAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37213536E350063DA4E /* SBJsonStreamParserAdapter.h */; };
+		1777C38613536E350063DA4E /* SBJsonStreamParserAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37313536E350063DA4E /* SBJsonStreamParserAdapter.m */; };
+		1777C38713536E350063DA4E /* SBJsonStreamParserState.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37413536E350063DA4E /* SBJsonStreamParserState.h */; };
+		1777C38813536E350063DA4E /* SBJsonStreamParserState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37513536E350063DA4E /* SBJsonStreamParserState.m */; };
+		1777C38913536E350063DA4E /* SBJsonStreamWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37613536E350063DA4E /* SBJsonStreamWriter.h */; };
+		1777C38A13536E350063DA4E /* SBJsonStreamWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37713536E350063DA4E /* SBJsonStreamWriter.m */; };
+		1777C38B13536E350063DA4E /* SBJsonStreamWriterState.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37813536E350063DA4E /* SBJsonStreamWriterState.h */; };
+		1777C38C13536E350063DA4E /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37913536E350063DA4E /* SBJsonStreamWriterState.m */; };
+		1777C38D13536E350063DA4E /* SBJsonTokeniser.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37A13536E350063DA4E /* SBJsonTokeniser.h */; };
+		1777C38E13536E350063DA4E /* SBJsonTokeniser.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37B13536E350063DA4E /* SBJsonTokeniser.m */; };
+		1777C38F13536E350063DA4E /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C37C13536E350063DA4E /* SBJsonWriter.h */; };
+		1777C39013536E350063DA4E /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C37D13536E350063DA4E /* SBJsonWriter.m */; };
+		1777C39313536FC30063DA4E /* GVAllSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C39113536FC20063DA4E /* GVAllSettings.h */; };
+		1777C39413536FC30063DA4E /* GVAllSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C39213536FC20063DA4E /* GVAllSettings.m */; };
+		1777C3971353707D0063DA4E /* GVSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C3951353707C0063DA4E /* GVSettings.h */; };
+		1777C3981353707D0063DA4E /* GVSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3961353707C0063DA4E /* GVSettings.m */; };
+		1777C3991353707D0063DA4E /* GVSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3961353707C0063DA4E /* GVSettings.m */; };
 		17BAF82E1353353E00E880A8 /* NSString-GVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 17BAF82C1353353E00E880A8 /* NSString-GVoice.h */; };
 		17BAF82F1353353E00E880A8 /* NSString-GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BAF82D1353353E00E880A8 /* NSString-GVoice.m */; };
 		17BAF8301353353E00E880A8 /* NSString-GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BAF82D1353353E00E880A8 /* NSString-GVoice.m */; };
@@ -48,6 +76,33 @@
 		17176E571352984F00C11809 /* GVTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVTests.m; sourceTree = "<group>"; };
 		1777C359135337C50063DA4E /* GVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVoice.h; sourceTree = "<group>"; };
 		1777C35A135337C50063DA4E /* GVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVoice.m; sourceTree = "<group>"; };
+		1777C3621353662B0063DA4E /* ParsingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsingUtils.h; sourceTree = "<group>"; };
+		1777C3631353662B0063DA4E /* ParsingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsingUtils.m; sourceTree = "<group>"; };
+		1777C367135368F20063DA4E /* ParsingUtilsTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParsingUtilsTests.h; sourceTree = "<group>"; };
+		1777C368135368F20063DA4E /* ParsingUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParsingUtilsTests.m; sourceTree = "<group>"; };
+		1777C36B13536E350063DA4E /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
+		1777C36C13536E350063DA4E /* NSObject+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+JSON.h"; sourceTree = "<group>"; };
+		1777C36D13536E350063DA4E /* NSObject+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+JSON.m"; sourceTree = "<group>"; };
+		1777C36E13536E350063DA4E /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
+		1777C36F13536E350063DA4E /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
+		1777C37013536E350063DA4E /* SBJsonStreamParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParser.h; sourceTree = "<group>"; };
+		1777C37113536E350063DA4E /* SBJsonStreamParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParser.m; sourceTree = "<group>"; };
+		1777C37213536E350063DA4E /* SBJsonStreamParserAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserAdapter.h; sourceTree = "<group>"; };
+		1777C37313536E350063DA4E /* SBJsonStreamParserAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserAdapter.m; sourceTree = "<group>"; };
+		1777C37413536E350063DA4E /* SBJsonStreamParserState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamParserState.h; sourceTree = "<group>"; };
+		1777C37513536E350063DA4E /* SBJsonStreamParserState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamParserState.m; sourceTree = "<group>"; };
+		1777C37613536E350063DA4E /* SBJsonStreamWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriter.h; sourceTree = "<group>"; };
+		1777C37713536E350063DA4E /* SBJsonStreamWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriter.m; sourceTree = "<group>"; };
+		1777C37813536E350063DA4E /* SBJsonStreamWriterState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonStreamWriterState.h; sourceTree = "<group>"; };
+		1777C37913536E350063DA4E /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
+		1777C37A13536E350063DA4E /* SBJsonTokeniser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonTokeniser.h; sourceTree = "<group>"; };
+		1777C37B13536E350063DA4E /* SBJsonTokeniser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonTokeniser.m; sourceTree = "<group>"; };
+		1777C37C13536E350063DA4E /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
+		1777C37D13536E350063DA4E /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		1777C39113536FC20063DA4E /* GVAllSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVAllSettings.h; sourceTree = "<group>"; };
+		1777C39213536FC20063DA4E /* GVAllSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVAllSettings.m; sourceTree = "<group>"; };
+		1777C3951353707C0063DA4E /* GVSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVSettings.h; sourceTree = "<group>"; };
+		1777C3961353707C0063DA4E /* GVSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVSettings.m; sourceTree = "<group>"; };
 		17BAF82C1353353E00E880A8 /* NSString-GVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-GVoice.h"; sourceTree = "<group>"; };
 		17BAF82D1353353E00E880A8 /* NSString-GVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-GVoice.m"; sourceTree = "<group>"; };
 		17BAF8381353362B00E880A8 /* GVCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCredentials.h; sourceTree = "<group>"; };
@@ -108,11 +163,18 @@
 		17176E3D1352984F00C11809 /* GV */ = {
 			isa = PBXGroup;
 			children = (
+				1777C36A13536E1E0063DA4E /* JSON */,
 				1777C359135337C50063DA4E /* GVoice.h */,
 				1777C35A135337C50063DA4E /* GVoice.m */,
 				17176E3E1352984F00C11809 /* Supporting Files */,
 				17BAF82C1353353E00E880A8 /* NSString-GVoice.h */,
 				17BAF82D1353353E00E880A8 /* NSString-GVoice.m */,
+				1777C3621353662B0063DA4E /* ParsingUtils.h */,
+				1777C3631353662B0063DA4E /* ParsingUtils.m */,
+				1777C39113536FC20063DA4E /* GVAllSettings.h */,
+				1777C39213536FC20063DA4E /* GVAllSettings.m */,
+				1777C3951353707C0063DA4E /* GVSettings.h */,
+				1777C3961353707C0063DA4E /* GVSettings.m */,
 			);
 			path = GV;
 			sourceTree = "<group>";
@@ -132,6 +194,8 @@
 				17176E571352984F00C11809 /* GVTests.m */,
 				17176E4F1352984F00C11809 /* Supporting Files */,
 				17BAF8381353362B00E880A8 /* GVCredentials.h */,
+				1777C367135368F20063DA4E /* ParsingUtilsTests.h */,
+				1777C368135368F20063DA4E /* ParsingUtilsTests.m */,
 			);
 			path = GVTests;
 			sourceTree = "<group>";
@@ -146,6 +210,32 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		1777C36A13536E1E0063DA4E /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				1777C36B13536E350063DA4E /* JSON.h */,
+				1777C36C13536E350063DA4E /* NSObject+JSON.h */,
+				1777C36D13536E350063DA4E /* NSObject+JSON.m */,
+				1777C36E13536E350063DA4E /* SBJsonParser.h */,
+				1777C36F13536E350063DA4E /* SBJsonParser.m */,
+				1777C37013536E350063DA4E /* SBJsonStreamParser.h */,
+				1777C37113536E350063DA4E /* SBJsonStreamParser.m */,
+				1777C37213536E350063DA4E /* SBJsonStreamParserAdapter.h */,
+				1777C37313536E350063DA4E /* SBJsonStreamParserAdapter.m */,
+				1777C37413536E350063DA4E /* SBJsonStreamParserState.h */,
+				1777C37513536E350063DA4E /* SBJsonStreamParserState.m */,
+				1777C37613536E350063DA4E /* SBJsonStreamWriter.h */,
+				1777C37713536E350063DA4E /* SBJsonStreamWriter.m */,
+				1777C37813536E350063DA4E /* SBJsonStreamWriterState.h */,
+				1777C37913536E350063DA4E /* SBJsonStreamWriterState.m */,
+				1777C37A13536E350063DA4E /* SBJsonTokeniser.h */,
+				1777C37B13536E350063DA4E /* SBJsonTokeniser.m */,
+				1777C37C13536E350063DA4E /* SBJsonWriter.h */,
+				1777C37D13536E350063DA4E /* SBJsonWriter.m */,
+			);
+			name = JSON;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -156,6 +246,19 @@
 				17BAF82E1353353E00E880A8 /* NSString-GVoice.h in Headers */,
 				17BAF83A1353362B00E880A8 /* GVCredentials.h in Headers */,
 				1777C35B135337C50063DA4E /* GVoice.h in Headers */,
+				1777C3641353662C0063DA4E /* ParsingUtils.h in Headers */,
+				1777C37E13536E350063DA4E /* JSON.h in Headers */,
+				1777C37F13536E350063DA4E /* NSObject+JSON.h in Headers */,
+				1777C38113536E350063DA4E /* SBJsonParser.h in Headers */,
+				1777C38313536E350063DA4E /* SBJsonStreamParser.h in Headers */,
+				1777C38513536E350063DA4E /* SBJsonStreamParserAdapter.h in Headers */,
+				1777C38713536E350063DA4E /* SBJsonStreamParserState.h in Headers */,
+				1777C38913536E350063DA4E /* SBJsonStreamWriter.h in Headers */,
+				1777C38B13536E350063DA4E /* SBJsonStreamWriterState.h in Headers */,
+				1777C38D13536E350063DA4E /* SBJsonTokeniser.h in Headers */,
+				1777C38F13536E350063DA4E /* SBJsonWriter.h in Headers */,
+				1777C39313536FC30063DA4E /* GVAllSettings.h in Headers */,
+				1777C3971353707D0063DA4E /* GVSettings.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,6 +362,18 @@
 			files = (
 				17BAF82F1353353E00E880A8 /* NSString-GVoice.m in Sources */,
 				1777C35C135337C50063DA4E /* GVoice.m in Sources */,
+				1777C3651353662C0063DA4E /* ParsingUtils.m in Sources */,
+				1777C38013536E350063DA4E /* NSObject+JSON.m in Sources */,
+				1777C38213536E350063DA4E /* SBJsonParser.m in Sources */,
+				1777C38413536E350063DA4E /* SBJsonStreamParser.m in Sources */,
+				1777C38613536E350063DA4E /* SBJsonStreamParserAdapter.m in Sources */,
+				1777C38813536E350063DA4E /* SBJsonStreamParserState.m in Sources */,
+				1777C38A13536E350063DA4E /* SBJsonStreamWriter.m in Sources */,
+				1777C38C13536E350063DA4E /* SBJsonStreamWriterState.m in Sources */,
+				1777C38E13536E350063DA4E /* SBJsonTokeniser.m in Sources */,
+				1777C39013536E350063DA4E /* SBJsonWriter.m in Sources */,
+				1777C39413536FC30063DA4E /* GVAllSettings.m in Sources */,
+				1777C3981353707D0063DA4E /* GVSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,6 +384,9 @@
 				17176E581352984F00C11809 /* GVTests.m in Sources */,
 				17BAF8301353353E00E880A8 /* NSString-GVoice.m in Sources */,
 				1777C35D135337C50063DA4E /* GVoice.m in Sources */,
+				1777C3661353662C0063DA4E /* ParsingUtils.m in Sources */,
+				1777C369135368F20063DA4E /* ParsingUtilsTests.m in Sources */,
+				1777C3991353707D0063DA4E /* GVSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
