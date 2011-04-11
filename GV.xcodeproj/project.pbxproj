@@ -1,0 +1,407 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		17176E3C1352984F00C11809 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E3B1352984F00C11809 /* Foundation.framework */; };
+		17176E471352984F00C11809 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E461352984F00C11809 /* UIKit.framework */; };
+		17176E481352984F00C11809 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E3B1352984F00C11809 /* Foundation.framework */; };
+		17176E4A1352984F00C11809 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E491352984F00C11809 /* CoreGraphics.framework */; };
+		17176E4D1352984F00C11809 /* libGV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E381352984F00C11809 /* libGV.a */; };
+		17176E531352984F00C11809 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17176E511352984F00C11809 /* InfoPlist.strings */; };
+		17176E561352984F00C11809 /* GVTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 17176E551352984F00C11809 /* GVTests.h */; };
+		17176E581352984F00C11809 /* GVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17176E571352984F00C11809 /* GVTests.m */; };
+		17176E631352988300C11809 /* GVVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 17176E611352988300C11809 /* GVVoice.h */; };
+		17176E641352988300C11809 /* GVVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17176E621352988300C11809 /* GVVoice.m */; };
+		17176E651352988300C11809 /* GVVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17176E621352988300C11809 /* GVVoice.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		17176E4B1352984F00C11809 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 17176E2F1352984F00C11809 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 17176E371352984F00C11809;
+			remoteInfo = GV;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		17176E381352984F00C11809 /* libGV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGV.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		17176E3B1352984F00C11809 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		17176E3F1352984F00C11809 /* GV-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GV-Prefix.pch"; sourceTree = "<group>"; };
+		17176E451352984F00C11809 /* GVTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		17176E461352984F00C11809 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		17176E491352984F00C11809 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		17176E501352984F00C11809 /* GVTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GVTests-Info.plist"; sourceTree = "<group>"; };
+		17176E521352984F00C11809 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		17176E541352984F00C11809 /* GVTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVTests-Prefix.pch"; sourceTree = "<group>"; };
+		17176E551352984F00C11809 /* GVTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVTests.h; sourceTree = "<group>"; };
+		17176E571352984F00C11809 /* GVTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVTests.m; sourceTree = "<group>"; };
+		17176E611352988300C11809 /* GVVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVVoice.h; sourceTree = "<group>"; };
+		17176E621352988300C11809 /* GVVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVVoice.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		17176E351352984F00C11809 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E3C1352984F00C11809 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17176E411352984F00C11809 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E471352984F00C11809 /* UIKit.framework in Frameworks */,
+				17176E481352984F00C11809 /* Foundation.framework in Frameworks */,
+				17176E4A1352984F00C11809 /* CoreGraphics.framework in Frameworks */,
+				17176E4D1352984F00C11809 /* libGV.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		17176E2D1352984F00C11809 = {
+			isa = PBXGroup;
+			children = (
+				17176E3D1352984F00C11809 /* GV */,
+				17176E4E1352984F00C11809 /* GVTests */,
+				17176E3A1352984F00C11809 /* Frameworks */,
+				17176E391352984F00C11809 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		17176E391352984F00C11809 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				17176E381352984F00C11809 /* libGV.a */,
+				17176E451352984F00C11809 /* GVTests.octest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		17176E3A1352984F00C11809 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				17176E3B1352984F00C11809 /* Foundation.framework */,
+				17176E461352984F00C11809 /* UIKit.framework */,
+				17176E491352984F00C11809 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		17176E3D1352984F00C11809 /* GV */ = {
+			isa = PBXGroup;
+			children = (
+				17176E3E1352984F00C11809 /* Supporting Files */,
+				17176E611352988300C11809 /* GVVoice.h */,
+				17176E621352988300C11809 /* GVVoice.m */,
+			);
+			path = GV;
+			sourceTree = "<group>";
+		};
+		17176E3E1352984F00C11809 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17176E3F1352984F00C11809 /* GV-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		17176E4E1352984F00C11809 /* GVTests */ = {
+			isa = PBXGroup;
+			children = (
+				17176E551352984F00C11809 /* GVTests.h */,
+				17176E571352984F00C11809 /* GVTests.m */,
+				17176E4F1352984F00C11809 /* Supporting Files */,
+			);
+			path = GVTests;
+			sourceTree = "<group>";
+		};
+		17176E4F1352984F00C11809 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				17176E501352984F00C11809 /* GVTests-Info.plist */,
+				17176E511352984F00C11809 /* InfoPlist.strings */,
+				17176E541352984F00C11809 /* GVTests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		17176E361352984F00C11809 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E631352988300C11809 /* GVVoice.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		17176E371352984F00C11809 /* GV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GV" */;
+			buildPhases = (
+				17176E341352984F00C11809 /* Sources */,
+				17176E351352984F00C11809 /* Frameworks */,
+				17176E361352984F00C11809 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GV;
+			productName = GV;
+			productReference = 17176E381352984F00C11809 /* libGV.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		17176E441352984F00C11809 /* GVTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVTests" */;
+			buildPhases = (
+				17176E401352984F00C11809 /* Sources */,
+				17176E411352984F00C11809 /* Frameworks */,
+				17176E421352984F00C11809 /* Resources */,
+				17176E431352984F00C11809 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				17176E4C1352984F00C11809 /* PBXTargetDependency */,
+			);
+			name = GVTests;
+			productName = GVTests;
+			productReference = 17176E451352984F00C11809 /* GVTests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		17176E2F1352984F00C11809 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				ORGANIZATIONNAME = "Spectrum K12 School Solutions, Inc.";
+			};
+			buildConfigurationList = 17176E321352984F00C11809 /* Build configuration list for PBXProject "GV" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 17176E2D1352984F00C11809;
+			productRefGroup = 17176E391352984F00C11809 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				17176E371352984F00C11809 /* GV */,
+				17176E441352984F00C11809 /* GVTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		17176E421352984F00C11809 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E531352984F00C11809 /* InfoPlist.strings in Resources */,
+				17176E561352984F00C11809 /* GVTests.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		17176E431352984F00C11809 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		17176E341352984F00C11809 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E641352988300C11809 /* GVVoice.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		17176E401352984F00C11809 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				17176E581352984F00C11809 /* GVTests.m in Sources */,
+				17176E651352988300C11809 /* GVVoice.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		17176E4C1352984F00C11809 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 17176E371352984F00C11809 /* GV */;
+			targetProxy = 17176E4B1352984F00C11809 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		17176E511352984F00C11809 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17176E521352984F00C11809 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		17176E591352984F00C11809 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		17176E5A1352984F00C11809 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		17176E5C1352984F00C11809 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DSTROOT = /tmp/GV.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GV/GV-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		17176E5D1352984F00C11809 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DSTROOT = /tmp/GV.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GV/GV-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		17176E5F1352984F00C11809 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVTests/GVTests-Prefix.pch";
+				INFOPLIST_FILE = "GVTests/GVTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		17176E601352984F00C11809 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GVTests/GVTests-Prefix.pch";
+				INFOPLIST_FILE = "GVTests/GVTests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		17176E321352984F00C11809 /* Build configuration list for PBXProject "GV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17176E591352984F00C11809 /* Debug */,
+				17176E5A1352984F00C11809 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17176E5C1352984F00C11809 /* Debug */,
+				17176E5D1352984F00C11809 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				17176E5F1352984F00C11809 /* Debug */,
+				17176E601352984F00C11809 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 17176E2F1352984F00C11809 /* Project object */;
+}
