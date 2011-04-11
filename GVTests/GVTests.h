@@ -7,11 +7,13 @@
 //
 
 #import <SenTestingKit/SenTestingKit.h>
-
+#import "GVoice.h"
 
 @interface GVTests : SenTestCase {
 @private
-    
+    GVoice *_voice;
 }
+
+@property (nonatomic, retain) GVoice *voice;
 
 @end
