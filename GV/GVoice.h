@@ -16,6 +16,10 @@
 #define MAX_REDIRECTS 5
 #define USER_AGENT @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13"
 
+// HTTP Headers
+#define AUTHORIZATION_HEADER @"Authorization"
+#define USER_AGENT_HEADER @"User-agent"
+
 // URLs
 #define GENERAL_URL_STRING @"https://www.google.com/voice/"
 #define LOGIN_URL_STRING @"https://www.google.com/accounts/ClientLogin"
@@ -72,6 +76,7 @@ typedef enum {
 	BOOL _logToConsole;
 	
 	NSString *_general;
+	NSString *_rnrSe;
 }
 
 @property (nonatomic, assign) AccountType accountType;
@@ -94,4 +99,6 @@ typedef enum {
 
 - (NSString *) fetchGeneral;
 - (GVAllSettings *) fetchSettings;
+- (BOOL) disablePhone: (NSInteger) phoneId;
+- (BOOL) enablePhone: (NSInteger) phoneId;
 @end

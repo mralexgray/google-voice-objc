@@ -63,8 +63,6 @@
 	
 	STAssertTrue(res, @"Login failed");
 	
-	[NSRunLoop currentRunLoop];
-	
 	GVAllSettings *allSettings = [self.voice fetchSettings];
 	
 	STAssertNotNil(allSettings, @"Settings should not be nil");
@@ -83,8 +81,25 @@
 	STAssertTrue([settings.emailAddresses count] > 0, @"emailAddresses should not be nil");
 }
 
+- (void) testDisablePhone {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL ret = [self.voice disablePhone: 1];
+	
+	STAssertTrue(ret, @"Should have been YES");
+}
 
-
+- (void) testEnablePhone {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL ret = [self.voice enablePhone: 1];
+	
+	STAssertTrue(ret, @"Should have been YES");
+}
 
 
 

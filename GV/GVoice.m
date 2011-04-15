@@ -10,6 +10,7 @@
 #import "NSString-GVoice.h"
 #import "ParsingUtils.h"
 #import "GVAllSettings.h"
+#import "JSON.h"
 
 #pragma mark - Private Properties
 @interface GVoice ()
@@ -18,6 +19,9 @@
 @property (nonatomic, retain) NSString *captchaUrl;
 @property (nonatomic, retain) NSString *captchaUrl2;
 @property (nonatomic, assign) NSInteger redirectCounter;
+@property (nonatomic, retain) NSString *rnrSe;
+
+- (NSString *) discoverRNRSE;
 @end
 
 @implementation GVoice
@@ -35,6 +39,7 @@
 @synthesize errorCode = _errorCode;
 @synthesize logToConsole = _logToConsole;
 @synthesize general = _general;
+@synthesize rnrSe = _rnrSe;
 
 #pragma mark - Utility Methods
 - (void) setErrorCodeFromReturnValue: (NSString *) retValue {
@@ -159,6 +164,8 @@
 }
 
 - (BOOL) loginWithCaptchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken {
+	BOOL ok;
+	
 	NSString *data = [NSString stringWithFormat: @"accountType=%@&Email=%@&Passwd=%@&service=%@&source=%@", 
 					  self.accountTypeAsString,
 					  self.user.urlEncoded,
@@ -179,7 +186,7 @@
 	
 	[request setHTTPMethod: @"POST"];
 	[request setHTTPBody: requestData];
-	[request addValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
+	[request setValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
 
 	NSURLResponse *resp = nil;
 	NSError *err = nil;
@@ -193,7 +200,7 @@
 		
 		self.errorCode = Unknown;
 		
-		return NO;
+		ok = NO;
 	} else {
 		NSString *retString = [[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding];
 		
@@ -212,7 +219,7 @@
 				NSArray *tokens = [line componentsSeparatedByString: @"="];
 				
 				[self setErrorCodeFromReturnValue: [tokens objectAtIndex: 1]];
-				return NO;
+				ok = NO;
 			} else {			
 				NSRange textRange = [line rangeOfString: @"Auth"];
 				
@@ -228,6 +235,10 @@
 			NSLog(@"GVoice Login Auth Token: %@", tmpAuthToken);
 		}
 		
+		if (tmpAuthToken) {
+			ok = YES;
+		}
+		
 		self.authToken = tmpAuthToken;
 		
 		[retString release];		
@@ -236,18 +247,20 @@
 	[request release];
 	
 	self.general = [self fetchGeneral];
+	self.rnrSe = [self discoverRNRSE];
 	
-	return YES;
+	return ok;
 }
 
 #pragma mark - Private Methods
+- (NSString *) fullAuthString {
+	return [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];	
+}
 - (NSString *) fetchPage: (NSInteger) page fromUrl: (NSString *) urlString{
 	NSURL *url = [NSURL URLWithString: urlString];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
-	
-	NSString *authString = [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];
-	
-	[request setValue: authString forHTTPHeaderField: @"Authorization"];
+		
+	[request setValue: [self fullAuthString] forHTTPHeaderField: @"Authorization"];
 	[request setValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
 
 	NSHTTPURLResponse *resp = nil;
@@ -301,6 +314,93 @@
 	return [self fetchPage: 0 fromUrl: urlString];
 }
 
+- (NSString *) discoverRNRSE {
+	NSString *rnr;
+	
+	if (self.general) {
+		NSArray *chunks = [self.general componentsSeparatedByString: @"'_rnr_se': '"];
+		
+		if (chunks && [chunks count] >= 2) {
+			NSString *rnrSsMajor = [chunks objectAtIndex: 1];
+			NSArray *rnrChunks = [rnrSsMajor componentsSeparatedByString: @"',"];
+			
+			if (rnrChunks && [rnrChunks count] > 0) {
+				rnr = [rnrChunks objectAtIndex: 0];
+				NSLog(@"RNR: %@", rnr);
+			}
+		}
+	}
+	
+	return rnr;
+}
+
+- (BOOL) enableOrDisablePhone: (NSString *) paramString {
+	BOOL ok;
+	
+	NSData *requestData = [NSData dataWithBytes: [paramString UTF8String] length: [paramString length]];
+	
+	NSURL *url = [NSURL URLWithString: PHONE_ENABLE_URL_STRING];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
+	
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody: requestData];
+	
+	[request setValue: [self fullAuthString] forHTTPHeaderField: AUTHORIZATION_HEADER];
+	[request setValue: USER_AGENT forHTTPHeaderField: USER_AGENT_HEADER];
+	
+	NSHTTPURLResponse *resp = nil;
+	NSError *err = nil;
+	
+	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
+	
+	if (err) {
+		if (self.logToConsole) {
+			NSLog(@"GVoice enableOrDisablePhone Error: %@", err);
+		}
+		
+		self.errorCode = Unknown;
+		
+		ok = NO;
+	} else {
+		NSInteger statusCode = resp.statusCode;
+		
+		if (statusCode == 200) {
+			NSString *retString = [[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding];
+			
+			if (self.logToConsole) {
+				NSLog(@"GVoice enableOrDisablePhone: %@", retString);
+			}
+			
+			SBJsonParser *json = [[SBJsonParser alloc] init];
+			NSDictionary *dict = [json objectWithString: retString];
+			
+			ok = [[dict objectForKey: @"ok"] boolValue];
+						
+			[retString release];
+		} else if (statusCode == 301 ||
+				   statusCode == 302 ||
+				   statusCode == 303 ||
+				   statusCode == 307) {
+			self.redirectCounter++;
+			
+			if (self.redirectCounter > MAX_REDIRECTS) {
+				self.redirectCounter = 0;
+				
+				self.errorCode = TooManyRedirects;
+				ok = NO;
+			}
+			
+			// Need to handle redirect
+			ok = NO;
+		}
+	}
+	
+	[request release];
+	
+	// At this point, we need to change enabled/disabled for the given phone
+	return ok;
+}
+
 #pragma mark - Life Cycle Methods
 - (void)dealloc {	
     [_source release], _source = nil;
@@ -311,6 +411,7 @@
     [_captchaUrl release], _captchaUrl = nil;
     [_captchaUrl2 release], _captchaUrl2 = nil;
     [_general release], _general = nil;
+    [_rnrSe release], _rnrSe = nil;
 	
 	[super dealloc];
 }
@@ -341,7 +442,17 @@
 	return [self fetchFromUrl: GENERAL_URL_STRING];
 }
 
+- (BOOL) disablePhone: (NSInteger) phoneId {
+	NSString *paraString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, self.rnrSe];
+	
+	return [self enableOrDisablePhone: paraString];	
+}
 
+- (BOOL) enablePhone: (NSInteger) phoneId {
+	NSString *paraString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, self.rnrSe];
+
+	return [self enableOrDisablePhone: paraString];
+}
 
 
 

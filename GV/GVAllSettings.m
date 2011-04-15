@@ -26,6 +26,8 @@
 		self.phoneList = [dict objectForKey: @"phoneList"];
 		self.phones = [dict objectForKey: @"phones"];
 		self.settings = [[GVSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
+		
+		[json release];
 	}
 	
 	return self;
