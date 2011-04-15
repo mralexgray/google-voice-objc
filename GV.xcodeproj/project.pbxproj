@@ -164,9 +164,9 @@
 			isa = PBXGroup;
 			children = (
 				1777C36A13536E1E0063DA4E /* JSON */,
+				17176E3E1352984F00C11809 /* Supporting Files */,
 				1777C359135337C50063DA4E /* GVoice.h */,
 				1777C35A135337C50063DA4E /* GVoice.m */,
-				17176E3E1352984F00C11809 /* Supporting Files */,
 				17BAF82C1353353E00E880A8 /* NSString-GVoice.h */,
 				17BAF82D1353353E00E880A8 /* NSString-GVoice.m */,
 				1777C3621353662B0063DA4E /* ParsingUtils.h */,
@@ -190,9 +190,9 @@
 		17176E4E1352984F00C11809 /* GVTests */ = {
 			isa = PBXGroup;
 			children = (
+				17176E4F1352984F00C11809 /* Supporting Files */,
 				17176E551352984F00C11809 /* GVTests.h */,
 				17176E571352984F00C11809 /* GVTests.m */,
-				17176E4F1352984F00C11809 /* Supporting Files */,
 				17BAF8381353362B00E880A8 /* GVCredentials.h */,
 				1777C367135368F20063DA4E /* ParsingUtilsTests.h */,
 				1777C368135368F20063DA4E /* ParsingUtilsTests.m */,

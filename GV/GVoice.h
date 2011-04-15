@@ -13,10 +13,6 @@
 // Important Constants
 #define SERVICE @"grandcentral"
 
-#define GOOGLE @"GOOGLE"
-#define HOSTED @"HOSTED"
-#define HOSTED_OR_GOOGLE @"HOSTED_OR_GOOGLE"
-
 #define MAX_REDIRECTS 5
 #define USER_AGENT @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13"
 
@@ -55,9 +51,15 @@ typedef enum {
 	TooManyRedirects
 } ErrorCode;
 
+typedef enum {
+	GOOGLE,
+	HOSTED,
+	HOSTED_OR_GOOGLE
+} AccountType;
+
 @interface GVoice : NSObject {
     @private
-	NSString *_accountType;
+	AccountType _accountType;
 	NSString *_source;
 	NSString *_user;
 	NSString *_password;
@@ -67,19 +69,22 @@ typedef enum {
 	NSString *_captchaUrl2;
 	NSInteger _redirectCounter;
 	ErrorCode _errorCode;
-	BOOL logToConsole;
+	BOOL _logToConsole;
+	
+	NSString *_general;
 }
 
-@property (nonatomic, retain) NSString *accountType;
+@property (nonatomic, assign) AccountType accountType;
 @property (nonatomic, retain) NSString *source;
 @property (nonatomic, retain) NSString *user;
 @property (nonatomic, retain) NSString *password;
 @property (nonatomic, assign) ErrorCode errorCode;
 @property (nonatomic, assign) BOOL logToConsole;
+@property (nonatomic, retain) NSString *general;
 
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;
-- (id) initWIthUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (NSString *) accountType;
-- (id) initWIthUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (NSString *) accountType 
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType;
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType 
 	captchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken;
 
 - (BOOL) login;
@@ -87,5 +92,6 @@ typedef enum {
 
 - (NSString *) errorDescription;
 
-- (GVAllSettings *) getSettings;
+- (NSString *) fetchGeneral;
+- (GVAllSettings *) fetchSettings;
 @end

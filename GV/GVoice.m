@@ -33,7 +33,8 @@
 @synthesize captchaUrl2 = _captchaUrl2;
 @synthesize redirectCounter = _redirectCounter;
 @synthesize errorCode = _errorCode;
-@synthesize logToConsole;
+@synthesize logToConsole = _logToConsole;
+@synthesize general = _general;
 
 #pragma mark - Utility Methods
 - (void) setErrorCodeFromReturnValue: (NSString *) retValue {
@@ -56,6 +57,24 @@
 	} else if ([retValue isEqualToString: @"ServiceUnavailable"]) {
 		self.errorCode = ServiceUnavailable;
 	}
+}
+
+- (NSString *) accountTypeAsString {
+	NSString *string;
+	
+	switch (self.accountType) {
+		case GOOGLE:
+			string = @"GOOGLE";
+			break;
+		case HOSTED:
+			string = @"HOSTED";
+			break;
+		case HOSTED_OR_GOOGLE:
+			string = @"HOSTED_OR_GOOGLE";
+			break;
+	}
+	
+	return string;
 }
 
 - (NSString *) errorDescription {
@@ -102,16 +121,16 @@
 
 #pragma mark - Initialization Methods
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source {
-	return [self initWIthUser: user
+	return [self initWithUser: user
 					 password: password
 					   source: source
-				  accountType: nil
+				  accountType: GOOGLE
 			  captchaResponse: nil
 				 captchaToken: nil];
 }
 
-- (id) initWIthUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (NSString *) accountType {
-	return [self initWIthUser: user
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType {
+	return [self initWithUser: user
 					 password: password
 					   source: source
 				  accountType: accountType
@@ -119,7 +138,7 @@
 				 captchaToken: nil];	
 }
 
-- (id) initWIthUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (NSString *) accountType 
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType 
 	captchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken {
 	self = [super init];
 	
@@ -141,7 +160,7 @@
 
 - (BOOL) loginWithCaptchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken {
 	NSString *data = [NSString stringWithFormat: @"accountType=%@&Email=%@&Passwd=%@&service=%@&source=%@", 
-					  @"HOSTED_OR_GOOGLE".urlEncoded,
+					  self.accountTypeAsString,
 					  self.user.urlEncoded,
 					  self.password.urlEncoded,
 					  SERVICE.urlEncoded,
@@ -184,7 +203,7 @@
 				
 		NSArray *lines = [retString componentsSeparatedByString: @"\n"];
 		
-		NSString *authToken;
+		NSString *tmpAuthToken;
 		
 		for (NSString *line in lines) {
 			NSRange errorRange = [line rangeOfString: @"Error"];
@@ -199,51 +218,43 @@
 				
 				if (textRange.location != NSNotFound) {
 					NSArray *tokens = [line componentsSeparatedByString: @"="];
-					authToken = [[tokens objectAtIndex: 1] retain];
+					tmpAuthToken = [[tokens objectAtIndex: 1] retain];
 					break;
 				}
 			}
 		}
 		
 		if (self.logToConsole) {
-			NSLog(@"GVoice Login Auth Token: %@", authToken);
+			NSLog(@"GVoice Login Auth Token: %@", tmpAuthToken);
 		}
+		
+		self.authToken = tmpAuthToken;
 		
 		[retString release];		
 	}
 	
 	[request release];
 	
+	self.general = [self fetchGeneral];
+	
 	return YES;
 }
 
 #pragma mark - Private Methods
-- (NSString *) getFromUrl: (NSString *) urlString {
+- (NSString *) fetchPage: (NSInteger) page fromUrl: (NSString *) urlString{
 	NSURL *url = [NSURL URLWithString: urlString];
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
 	
 	NSString *authString = [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];
 	
-	[request addValue: authString forHTTPHeaderField: @"Authorization"];
-	[request addValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
+	[request setValue: authString forHTTPHeaderField: @"Authorization"];
+	[request setValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
 
-	// Follow redirects?
-	
-	NSDictionary *fields = [request allHTTPHeaderFields];
-	
-	NSArray *keys = [fields allKeys];
-
-	if (self.logToConsole) {
-		for (NSString *key in keys) {
-			NSLog(@"%@ = %@", key, [fields valueForKey: key]);
-		}
-	}
-	
 	NSHTTPURLResponse *resp = nil;
 	NSError *err = nil;
 	
 	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
-	
+
 	if (err) {
 		if (self.logToConsole) {
 			NSLog(@"GVoice Fetch Error: %@", err);
@@ -285,9 +296,13 @@
 	
 	return @"";
 }
+
+- (NSString *) fetchFromUrl: (NSString *) urlString {
+	return [self fetchPage: 0 fromUrl: urlString];
+}
+
 #pragma mark - Life Cycle Methods
 - (void)dealloc {	
-    [_accountType release], _accountType = nil;
     [_source release], _source = nil;
     [_user release], _user = nil;
     [_password release], _password = nil;
@@ -295,28 +310,36 @@
     [_captchaToken release], _captchaToken = nil;
     [_captchaUrl release], _captchaUrl = nil;
     [_captchaUrl2 release], _captchaUrl2 = nil;
+    [_general release], _general = nil;
 	
 	[super dealloc];
 }
 
 #pragma mark - Google Voice Methods
-- (GVAllSettings *) getSettings {
-	NSString *string = [self getFromUrl: GROUPS_INFO_URL_STRING];
+- (GVAllSettings *) fetchSettings {
+	NSString *string = [self fetchFromUrl: GROUPS_INFO_URL_STRING];
 
+	if (self.logToConsole) {
+		NSLog(@"GVoice getSettings: %@", string);
+	}
+	
 	NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: string
 												  startingWith: @"<json><![CDATA["
 													endingWith: @"]]></json>"
 											   includingTokens: NO];
+	
+	if (self.logToConsole) {
+		NSLog(@"GVoice getSettings jsonSubStr: %@", jsonSubStr);
+	}
 	
 	GVAllSettings *allSettings = [[GVAllSettings alloc] initWithJsonString: jsonSubStr];
 
 	return allSettings;
 }
 
-
-
-
-
+- (NSString *) fetchGeneral {
+	return [self fetchFromUrl: GENERAL_URL_STRING];
+}
 
 
 
