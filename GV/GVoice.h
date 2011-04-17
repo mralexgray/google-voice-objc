@@ -40,6 +40,7 @@
 #define GROUPS_INFO_URL_STRING @"https://www.google.com/voice/settings/tab/groups"
 #define VOICE_MAIL_INFO_URL_STRING @"https://www.google.com/voice/settings/tab/voicemailsettings"
 #define GROUPS_SETTINGS_URL_STRING @"https://www.google.com/voice/settings/editGroup/"
+#define SMS_SEND_URL_STRING @"https://www.google.com/voice/sms/send/"
 
 typedef enum {
 	NoError,
@@ -75,8 +76,9 @@ typedef enum {
 	ErrorCode _errorCode;
 	BOOL _logToConsole;
 	
-	NSString *_general;
+	NSDictionary *_general;
 	NSString *_rnrSe;
+	GVAllSettings *_allSettings;
 }
 
 @property (nonatomic, assign) AccountType accountType;
@@ -85,7 +87,8 @@ typedef enum {
 @property (nonatomic, retain) NSString *password;
 @property (nonatomic, assign) ErrorCode errorCode;
 @property (nonatomic, assign) BOOL logToConsole;
-@property (nonatomic, retain) NSString *general;
+@property (nonatomic, retain) NSDictionary *general;
+@property (nonatomic, retain) GVAllSettings *allSettings;
 
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType;
@@ -97,8 +100,47 @@ typedef enum {
 
 - (NSString *) errorDescription;
 
-- (NSString *) fetchGeneral;
+- (NSDictionary *) fetchGeneral;
 - (GVAllSettings *) fetchSettings;
+- (GVAllSettings *) forceFetchSettings: (BOOL) force;
 - (BOOL) disablePhone: (NSInteger) phoneId;
 - (BOOL) enablePhone: (NSInteger) phoneId;
+- (NSArray *) disablePhones: (NSArray*) phones;
+- (NSArray *) enablePhones: (NSArray*) phones;
+- (NSDictionary *) fetchInbox;
+- (NSDictionary *) fetchInboxPage: (NSInteger) page;
+- (NSDictionary *) fetchMissed;
+- (NSDictionary *) fetchMissedPage: (NSInteger) page;
+- (NSDictionary *) fetchPlaced;
+- (NSDictionary *) fetchPlacedPage: (NSInteger) page;
+- (NSDictionary *) fetchRawPhonesInfo;
+- (NSDictionary *) fetchReceived;
+- (NSDictionary *) fetchReceivedPage: (NSInteger) page;
+- (NSDictionary *) fetchRecent;
+- (NSDictionary *) fetchRecentPage: (NSInteger) page;
+- (NSDictionary *) fetchRecorded;
+- (NSDictionary *) fetchRecordedPage: (NSInteger) page;
+- (NSDictionary *) fetchSms;
+- (NSDictionary *) fetchSmsPage: (NSInteger) page;
+- (NSDictionary *) fetchSpam;
+- (NSDictionary *) fetchSpamPage: (NSInteger) page;
+- (NSDictionary *) fetchStarred;
+- (NSDictionary *) fetchStarredPage: (NSInteger) page;
+- (BOOL) sendSmsText: (NSString *) text toNumber: (NSString *) number;
+- (BOOL) enableCallPresentation: (BOOL) enable;
+- (BOOL) enableDoNotDisturb: (BOOL) doNotDisturb;
+- (BOOL) selectGreeting: (NSInteger) greetingId;
+
+// - (BOOL) applySettingsForGroup: (GVGroup *) group;
+// - (NSArray *) fetchGreetings;
+// - (BOOL) isLoggedIn;
+
+
+
+
+
+
+
+
+
 @end

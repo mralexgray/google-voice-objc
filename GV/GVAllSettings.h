@@ -19,5 +19,5 @@
 @property (nonatomic, retain) NSArray *phones;
 @property (nonatomic, retain) GVSettings *settings;
 
-- (id) initWithJsonString: (NSString *) string;
+- (id) initWithDictionary: (NSDictionary *) dict;
 @end

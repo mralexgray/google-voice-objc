@@ -7,7 +7,6 @@
 //
 
 #import "GVAllSettings.h"
-#import "JSON.h"
 
 @implementation GVAllSettings
 
@@ -16,18 +15,13 @@
 @synthesize settings = _settings;
 
 #pragma mark - Init Methods
-- (id) initWithJsonString: (NSString *) string {
+- (id) initWithDictionary: (NSDictionary *) dict {
 	self = [super init];
 	
 	if (self) {
-		SBJsonParser *json = [[SBJsonParser alloc] init];
-		NSDictionary *dict = [json objectWithString: string];
-		
 		self.phoneList = [dict objectForKey: @"phoneList"];
 		self.phones = [dict objectForKey: @"phones"];
 		self.settings = [[GVSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
-		
-		[json release];
 	}
 	
 	return self;

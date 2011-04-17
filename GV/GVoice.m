@@ -40,6 +40,7 @@
 @synthesize logToConsole = _logToConsole;
 @synthesize general = _general;
 @synthesize rnrSe = _rnrSe;
+@synthesize allSettings = _allSettings;
 
 #pragma mark - Utility Methods
 - (void) setErrorCodeFromReturnValue: (NSString *) retValue {
@@ -164,7 +165,7 @@
 }
 
 - (BOOL) loginWithCaptchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken {
-	BOOL ok;
+	BOOL ok = NO;
 	
 	NSString *data = [NSString stringWithFormat: @"accountType=%@&Email=%@&Passwd=%@&service=%@&source=%@", 
 					  self.accountTypeAsString,
@@ -210,7 +211,7 @@
 				
 		NSArray *lines = [retString componentsSeparatedByString: @"\n"];
 		
-		NSString *tmpAuthToken;
+		NSString *tmpAuthToken = nil;
 		
 		for (NSString *line in lines) {
 			NSRange errorRange = [line rangeOfString: @"Error"];
@@ -230,17 +231,17 @@
 				}
 			}
 		}
-		
-		if (self.logToConsole) {
-			NSLog(@"GVoice Login Auth Token: %@", tmpAuthToken);
-		}
-		
-		if (tmpAuthToken) {
-			ok = YES;
-		}
-		
+
 		self.authToken = tmpAuthToken;
 		
+		if (self.logToConsole) {
+			NSLog(@"GVoice Login Auth Token: %@", self.authToken);
+		}
+		
+		if (self.authToken) {
+			ok = YES;
+		}
+				
 		[retString release];		
 	}
 	
@@ -256,8 +257,18 @@
 - (NSString *) fullAuthString {
 	return [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];	
 }
-- (NSString *) fetchPage: (NSInteger) page fromUrl: (NSString *) urlString{
-	NSURL *url = [NSURL URLWithString: urlString];
+
+- (NSDictionary *) fetchPage: (NSInteger) page fromUrl: (NSString *) urlString{
+	NSString *fullUrlString;
+	
+	if (page == 0) {
+		fullUrlString = urlString;
+	} else {
+		fullUrlString = [urlString stringByAppendingFormat: @"?page=p%d", page];
+	}
+	
+	NSURL *url = [NSURL URLWithString: fullUrlString];
+	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
 		
 	[request setValue: [self fullAuthString] forHTTPHeaderField: @"Authorization"];
@@ -267,26 +278,23 @@
 	NSError *err = nil;
 	
 	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
-
+	NSString *retString = nil;
+	
 	if (err) {
 		if (self.logToConsole) {
 			NSLog(@"GVoice Fetch Error: %@", err);
 		}
 		
 		self.errorCode = Unknown;
-		
-		return NO;
 	} else {
 		NSInteger statusCode = resp.statusCode;
 		
 		if (statusCode == 200) {
-			NSString *retString = [[[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding] autorelease];
+			retString = [[[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding] autorelease];
 
 			if (self.logToConsole) {
 				NSLog(@"GVoice Fetch: %@", retString);
 			}
-			
-			return retString;			
 		} else if (statusCode == 301 ||
 				   statusCode == 302 ||
 				   statusCode == 303 ||
@@ -297,25 +305,80 @@
 				self.redirectCounter = 0;
 				
 				self.errorCode = TooManyRedirects;
-				return nil;
 			}
 			
 			// Need to handle redirect
-			return @"";
 		}
 	}
 	
 	[request release];
 	
-	return @"";
+	NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: retString
+												  startingWith: @"<json><![CDATA["
+													endingWith: @"]]></json>"
+											   includingTokens: NO];
+	
+	SBJsonParser *json = [[SBJsonParser alloc] init];
+	NSDictionary *dict = [[json objectWithString: jsonSubStr] autorelease];
+	
+	[json release];
+	
+	return dict;
 }
 
-- (NSString *) fetchFromUrl: (NSString *) urlString {
+- (NSDictionary *) fetchFromUrl: (NSString *) urlString {
 	return [self fetchPage: 0 fromUrl: urlString];
 }
 
+- (NSDictionary *) postParameters: (NSString *) params toUrl: (NSString *) urlString {
+	NSData *requestData = [NSData dataWithBytes: [params UTF8String] length: [params length]];
+	
+	NSURL *url = [NSURL URLWithString: urlString];
+	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
+	
+	[request setHTTPMethod: @"POST"];
+	[request setHTTPBody: requestData];
+	
+	[request setValue: [self fullAuthString] forHTTPHeaderField: AUTHORIZATION_HEADER];
+	[request setValue: USER_AGENT forHTTPHeaderField: USER_AGENT_HEADER];
+	
+	NSURLResponse *resp = nil;
+	NSError *err = nil;
+	
+	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
+	NSString *retString = nil;
+	
+	if (err) {
+		if (self.logToConsole) {
+			NSLog(@"GVoice POST Error: %@", err);
+		}
+		
+		self.errorCode = Unknown;
+	} else {
+		retString = [[[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding] autorelease];
+		
+		if (self.logToConsole) {
+			NSLog(@"GVoice postSettings:toUrl: %@", retString);
+		}
+	}
+	
+	[request release];
+	
+	NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: retString
+												  startingWith: @"<json><![CDATA["
+													endingWith: @"]]></json>"
+											   includingTokens: NO];
+
+	SBJsonParser *json = [[SBJsonParser alloc] init];
+	NSDictionary *dict = [[json objectWithString: jsonSubStr] autorelease];
+	
+	[json release];
+	
+	return dict;
+}
+
 - (NSString *) discoverRNRSE {
-	NSString *rnr;
+	NSString *rnr = nil;
 	
 	if (self.general) {
 		NSArray *chunks = [self.general componentsSeparatedByString: @"'_rnr_se': '"];
@@ -326,7 +389,10 @@
 			
 			if (rnrChunks && [rnrChunks count] > 0) {
 				rnr = [rnrChunks objectAtIndex: 0];
-				NSLog(@"RNR: %@", rnr);
+				
+				if (self.logToConsole) {
+					NSLog(@"RNR: %@", rnr);
+				}
 			}
 		}
 	}
@@ -335,7 +401,7 @@
 }
 
 - (BOOL) enableOrDisablePhone: (NSString *) paramString {
-	BOOL ok;
+	BOOL ok = NO;
 	
 	NSData *requestData = [NSData dataWithBytes: [paramString UTF8String] length: [paramString length]];
 	
@@ -377,6 +443,7 @@
 			ok = [[dict objectForKey: @"ok"] boolValue];
 						
 			[retString release];
+			[json release];
 		} else if (statusCode == 301 ||
 				   statusCode == 302 ||
 				   statusCode == 303 ||
@@ -387,11 +454,9 @@
 				self.redirectCounter = 0;
 				
 				self.errorCode = TooManyRedirects;
-				ok = NO;
 			}
 			
 			// Need to handle redirect
-			ok = NO;
 		}
 	}
 	
@@ -399,6 +464,26 @@
 	
 	// At this point, we need to change enabled/disabled for the given phone
 	return ok;
+}
+
+- (NSArray *) enableOrDisable: (BOOL) enabled phones: (NSArray *) phones  {
+	NSMutableArray *results = [[[NSMutableArray alloc] init] autorelease];
+	
+	for (int i = 0; i < [phones count]; i++) {
+		NSInteger phoneId = [[phones objectAtIndex: i] integerValue];
+		
+		BOOL res;
+		
+		if (enabled) {
+			res = [self enablePhone: phoneId];	
+		} else {
+			res = [self disablePhone: phoneId];
+		}
+		
+		[results addObject: [NSNumber numberWithBool: res]];
+	}
+	
+	return results;
 }
 
 #pragma mark - Life Cycle Methods
@@ -411,53 +496,173 @@
     [_captchaUrl release], _captchaUrl = nil;
     [_captchaUrl2 release], _captchaUrl2 = nil;
     [_general release], _general = nil;
-    [_rnrSe release], _rnrSe = nil;
+    [_rnrSe release], _rnrSe = nil;	
+    [_allSettings release], _allSettings = nil;
 	
 	[super dealloc];
 }
 
 #pragma mark - Google Voice Methods
 - (GVAllSettings *) fetchSettings {
-	NSString *string = [self fetchFromUrl: GROUPS_INFO_URL_STRING];
-
-	if (self.logToConsole) {
-		NSLog(@"GVoice getSettings: %@", string);
-	}
-	
-	NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: string
-												  startingWith: @"<json><![CDATA["
-													endingWith: @"]]></json>"
-											   includingTokens: NO];
-	
-	if (self.logToConsole) {
-		NSLog(@"GVoice getSettings jsonSubStr: %@", jsonSubStr);
-	}
-	
-	GVAllSettings *allSettings = [[GVAllSettings alloc] initWithJsonString: jsonSubStr];
-
-	return allSettings;
+	return [self forceFetchSettings: NO];
 }
 
-- (NSString *) fetchGeneral {
+- (GVAllSettings *) forceFetchSettings: (BOOL) force {
+	if (!self.allSettings || force) {
+		NSDictionary *dict = [self fetchFromUrl: GROUPS_INFO_URL_STRING];
+
+		if (self.logToConsole) {
+			NSLog(@"GVoice getSettings: %@", dict);
+		}
+		
+		GVAllSettings *settings = [[GVAllSettings alloc] initWithDictionary: dict];
+		
+		self.allSettings = settings;
+	}
+	
+	return self.allSettings;
+}
+
+- (NSDictionary *) fetchGeneral {
 	return [self fetchFromUrl: GENERAL_URL_STRING];
 }
 
 - (BOOL) disablePhone: (NSInteger) phoneId {
-	NSString *paraString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, self.rnrSe];
+	NSString *paraString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 	
 	return [self enableOrDisablePhone: paraString];	
 }
 
 - (BOOL) enablePhone: (NSInteger) phoneId {
-	NSString *paraString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, self.rnrSe];
+	NSString *paraString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 
 	return [self enableOrDisablePhone: paraString];
 }
 
+- (NSArray *) disablePhones: (NSArray*) phones {
+	return [self enableOrDisable: NO phones: phones];
+}
 
+- (NSArray *) enablePhones: (NSArray*) phones {
+	return [self enableOrDisable: YES phones: phones];	
+}
 
+- (NSDictionary *) fetchInbox {
+	return [self fetchInboxPage: 0];
+}
 
+- (NSDictionary *) fetchInboxPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: INBOX_URL_STRING];
+}
 
+- (NSDictionary *) fetchMissed {
+	return [self fetchMissedPage: 0];
+}
+
+- (NSDictionary *) fetchMissedPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: MISSED_URL_STRING];
+}
+
+- (NSDictionary *) fetchPlaced {
+	return [self fetchPlacedPage: 0];
+}
+
+- (NSDictionary *) fetchPlacedPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: PLACED_URL_STRING];
+}
+
+- (NSDictionary *) fetchRawPhonesInfo {
+	return [self fetchFromUrl: PHONES_INFO_URL_STRING];
+}
+
+- (NSDictionary *) fetchReceived {
+	return [self fetchReceivedPage: 0];
+}
+
+- (NSDictionary *) fetchReceivedPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: RECEIVED_URL_STRING];
+}
+
+- (NSDictionary *) fetchRecent {
+	return [self fetchRecentPage: 0];
+}
+
+- (NSDictionary *) fetchRecentPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: RECENT_ALL_URL_STRING];
+}
+
+- (NSDictionary *) fetchRecorded {
+	return [self fetchRecordedPage: 0];
+}
+
+- (NSDictionary *) fetchRecordedPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: RECORDED_URL_STRING];
+}
+
+- (NSDictionary *) fetchSms {
+	return [self fetchSmsPage: 0];
+}
+
+- (NSDictionary *) fetchSmsPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: SMS_URL_STRING];
+}
+
+- (NSDictionary *) fetchSpam {
+	return [self fetchSpamPage: 0];
+}
+
+- (NSDictionary *) fetchSpamPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: SPAM_URL_STRING];
+}
+
+- (NSDictionary *) fetchStarred {
+	return [self fetchStarredPage: 0];
+}
+
+- (NSDictionary *) fetchStarredPage: (NSInteger) page {
+	return [self fetchPage: page fromUrl: STARRED_URL_STRING];
+}
+
+- (BOOL) sendSmsText: (NSString *) text toNumber: (NSString *) number {
+	NSString *params = [NSString stringWithFormat: @"phoneNumber=%@&text=%@&_rnr_se=%@",
+						[number urlEncoded],
+						[text urlEncoded],
+						[self.rnrSe urlEncoded]];
+	
+	NSDictionary *dict = [self postParameters: params toUrl: SMS_SEND_URL_STRING];
+	
+	return [[dict objectForKey: @"ok"] boolValue];
+}
+
+- (BOOL) enableCallPresentation: (BOOL) enable {
+	NSString *params = [NSString stringWithFormat: @"directConnect=%d&_rnr_se=%@",
+						(enable ? 0 : 1),
+						[self.rnrSe urlEncoded]];
+	
+	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
+	
+	return [[dict objectForKey: @"ok"] boolValue];
+}
+
+- (BOOL) enableDoNotDisturb: (BOOL) doNotDisturb {
+	NSString *params = [NSString stringWithFormat: @"doNotDisturb=%d&_rnr_se=%@",
+						(doNotDisturb ? 1 : 0),
+						[self.rnrSe urlEncoded]];
+	
+	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
+	
+	return [[dict objectForKey: @"ok"] boolValue];
+}
+
+- (BOOL) selectGreeting: (NSInteger) greetingId {
+	NSString *params = [NSString stringWithFormat: @"greetingId=%d&_rnr_se=%@",
+						greetingId,
+						[self.rnrSe urlEncoded]];
+	
+	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
+	
+	return [[dict objectForKey: @"ok"] boolValue];
+}
 
 
 
