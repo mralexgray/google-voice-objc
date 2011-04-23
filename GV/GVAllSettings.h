@@ -11,12 +11,12 @@
 
 @interface GVAllSettings : NSObject {
     NSArray *_phoneList;
-	NSArray *_phones;
+	NSDictionary *_phones;
 	GVSettings *_settings;
 }
 
 @property (nonatomic, retain) NSArray *phoneList;
-@property (nonatomic, retain) NSArray *phones;
+@property (nonatomic, retain) NSDictionary *phones;
 @property (nonatomic, retain) GVSettings *settings;
 
 - (id) initWithDictionary: (NSDictionary *) dict;

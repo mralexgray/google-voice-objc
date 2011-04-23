@@ -245,6 +245,8 @@
 		if (self.general) {
 			self.rnrSe = [self discoverRNRSE];
 		}
+		
+		[self fetchSettings];
 	}
 	
 	return ok;
@@ -316,7 +318,7 @@
 													   includingTokens: NO];
 			
 			SBJsonParser *json = [[SBJsonParser alloc] init];
-			dict = [[json objectWithString: jsonSubStr] autorelease];
+			dict = [json objectWithString: jsonSubStr];
 			
 			[json release];
 		} else {
@@ -375,7 +377,7 @@
 											   includingTokens: NO];
 
 	SBJsonParser *json = [[SBJsonParser alloc] init];
-	NSDictionary *dict = [[json objectWithString: jsonSubStr] autorelease];
+	NSDictionary *dict = [json objectWithString: jsonSubStr];
 	
 	[json release];
 	
@@ -481,6 +483,12 @@
 	}
 	
 	return results;
+}
+
+- (BOOL) isPhoneEnabled: (NSInteger) phoneId {
+	NSString *string = [NSString stringWithFormat: @"%d", phoneId];
+	
+	return ![self.allSettings.settings.disabledIds containsObject: string];
 }
 
 #pragma mark - Life Cycle Methods
@@ -627,6 +635,9 @@
 	return [[dict objectForKey: @"ok"] boolValue];
 }
 
+// "Call Presentation" is the pretty name for "directConnect". So, if directConnect is YES,
+// then calls will NOT be presented (i.e. you won't get an announcement, and ask if you want 
+// to take the call). If it is NO, then you WILL be asked if you want to take the call.
 - (BOOL) enableCallPresentation: (BOOL) enable {
 	NSString *params = [NSString stringWithFormat: @"directConnect=%d&_rnr_se=%@",
 						(enable ? 0 : 1),
@@ -647,6 +658,10 @@
 	return [[dict objectForKey: @"ok"] boolValue];
 }
 
+- (BOOL) doNotDisturbEnabled {
+	return self.allSettings.settings.doNotDisturb;
+}
+
 - (BOOL) selectGreeting: (NSInteger) greetingId {
 	NSString *params = [NSString stringWithFormat: @"greetingId=%d&_rnr_se=%@",
 						greetingId,
@@ -657,11 +672,20 @@
 	return [[dict objectForKey: @"ok"] boolValue];
 }
 
+// "Call Presentation" is the pretty name for "directConnect". So, if directConnect is YES,
+// then calls will NOT be presented (i.e. you won't get an announcement, and ask if you want 
+// to take the call). If it is NO, then you WILL be asked if you want to take the call.
+- (BOOL) directConnectEnabled {
+	return self.allSettings.settings.directConnect;
+}
 
+- (NSInteger) defaultGreetingId {
+	return self.allSettings.settings.defaultGreetingId;
+}
 
-
-
-
+- (NSArray *) greetings {
+	return self.allSettings.settings.greetings;
+}
 
 
 

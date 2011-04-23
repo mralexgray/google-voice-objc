@@ -32,133 +32,186 @@
     [super tearDown];
 }
 
-//- (void) testLogin
-//{
-//	STAssertNotNil(self.voice, @"No voice object");
-//	
-//	BOOL res = [self.voice login];
-//	
-//	if (!res) {
-//		STFail(@"Failed Login: %@", self.voice.errorDescription);
-//	}
-//}
-//
-//- (void) testLoginWithBadCredentials
-//{
-//	NSString *saveUser = self.voice.user;
-//	
-//	self.voice.user = [self.voice.user stringByAppendingString: @"BOGUS"];
-//	
-//	BOOL res = [self.voice login];
-//	
-//	if (!res) {
-//		self.voice.user = saveUser;
-//		
-//		STAssertEquals(self.voice.errorCode, BadAuthentication, @"Should have generated BadAuthentication");
-//	}
-//}
+- (void) testLogin
+{
+	STAssertNotNil(self.voice, @"No voice object");
+	
+	BOOL res = [self.voice login];
+	
+	if (!res) {
+		STFail(@"Failed Login: %@", self.voice.errorDescription);
+	}
+}
 
-//- (void) testGetSettings {
-//	BOOL res = [self.voice login];
-//	
-//	STAssertTrue(res, @"Login failed");
-//	
-//	GVAllSettings *allSettings = [self.voice fetchSettings];
-//	
-//	STAssertNotNil(allSettings, @"Settings should not be nil");
-//	STAssertNotNil(allSettings.phoneList, @"phoneList should not be nil");
-//	STAssertNotNil(allSettings.phones, @"phones should not be nil");
-//
-//	GVSettings *settings = allSettings.settings;
-//	
-//	STAssertNotNil(settings, @"settings should not be nil");
-//	
-//	STAssertNotNil(settings.language, @"language should not be nil");
-//	STAssertNotNil(settings.activeForwardingList, @"activeForwardingList should not be nil");
-//	STAssertTrue([settings.activeForwardingList count] > 0, @"activeForwardingList should not be nil");
-//	STAssertNotNil(settings.baseUrl, @"baseUrl should not be nil");
-//	STAssertNotNil(settings.emailAddresses, @"emailAddresses should not be nil");
-//	STAssertTrue([settings.emailAddresses count] > 0, @"emailAddresses should not be nil");
-//}
-//
-//- (void) testDisablePhone {
-//	BOOL res = [self.voice login];
-//	
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ret = [self.voice disablePhone: 1];
-//	
-//	STAssertTrue(ret, @"Failed to enable phone");
-//}
-//
-//- (void) testEnablePhone {
-//	BOOL res = [self.voice login];
-//	
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ret = [self.voice enablePhone: 1];
-//	
-//	STAssertTrue(ret, @"Failed to disable phone");
-//}
-//
-//- (void) testSendSmsTextToNumber {
-//	BOOL res = [self.voice login];
-//	
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ok = [self.voice sendSmsText: @"Testing 1, 2, 3" toNumber: TEXT_PHONE_NUMBER];
-//	
-//	STAssertTrue(ok, @"Failed sending SMS");
-//}
+- (void) testLoginWithBadCredentials
+{
+	NSString *saveUser = self.voice.user;
+	
+	self.voice.user = [self.voice.user stringByAppendingString: @"BOGUS"];
+	
+	BOOL res = [self.voice login];
+	
+	if (!res) {
+		self.voice.user = saveUser;
+		
+		STAssertEquals(self.voice.errorCode, BadAuthentication, @"Should have generated BadAuthentication");
+	}
+}
 
-//- (void) testEnableDnd {
-//	BOOL res = [self.voice login];
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ok = [self.voice enableDoNotDisturb: YES];
-//	
-//	STAssertTrue(ok, @"Failed enabling DND");
-//
-//	ok = [self.voice enableDoNotDisturb: NO];
-//	
-//	STAssertTrue(ok, @"Failed enabling DND");
-//}
+- (void) testGetSettings {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	GVAllSettings *allSettings = [self.voice fetchSettings];
+	
+	STAssertNotNil(allSettings, @"Settings should not be nil");
+	STAssertNotNil(allSettings.phoneList, @"phoneList should not be nil");
+	STAssertNotNil(allSettings.phones, @"phones should not be nil");
 
-//- (void) testEnableCallPresentation {
-//	BOOL res = [self.voice login];
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ok = [self.voice enableCallPresentation: NO];
-//	
-//	STAssertTrue(ok, @"Failed enabling call presentation");
-//	
-//	ok = [self.voice enableCallPresentation: YES];
-//	
-//	STAssertTrue(ok, @"Failed enabling call presentation");
-//}
+	GVSettings *settings = allSettings.settings;
+	
+	STAssertNotNil(settings, @"settings should not be nil");
+	
+	STAssertNotNil(settings.language, @"language should not be nil");
+	STAssertNotNil(settings.activeForwardingList, @"activeForwardingList should not be nil");
+	STAssertTrue([settings.activeForwardingList count] > 0, @"activeForwardingList should not be nil");
+	STAssertNotNil(settings.baseUrl, @"baseUrl should not be nil");
+	STAssertNotNil(settings.emailAddresses, @"emailAddresses should not be nil");
+	STAssertTrue([settings.emailAddresses count] > 0, @"emailAddresses should not be nil");
+}
 
-//- (void) testSelectGreeting {
-//	BOOL res = [self.voice login];
-//	STAssertTrue(res, @"Login failed");
-//	
-//	BOOL ok = [self.voice selectGreeting: 6];
-//	
-//	STAssertTrue(ok, @"Failed setting greeting");
-//	
-//	ok = [self.voice selectGreeting: 0];
-//	
-//	STAssertTrue(ok, @"Failed setting greeting");
-//}
+- (void) testTogglePhone {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL enabledAlready = [self.voice isPhoneEnabled: 1];
+	
+	BOOL ret;
+	
+	if (enabledAlready) {
+		ret = [self.voice disablePhone: 1];
+	} else {
+		ret = [self.voice enablePhone: 1];
+	}
+		
+	STAssertTrue(ret, @"Failed to %@ phone", (enabledAlready ? @"disable" : @"enable"));
+	
+	// Put things back the way they were
+	if (enabledAlready) {
+		ret = [self.voice enablePhone: 1];
+	} else {
+		ret = [self.voice disablePhone: 1];
+	}
+	
+	STAssertTrue(ret, @"Failed to %@ phone", (enabledAlready ? @"re-disable" : @"re-enable"));
+}
 
-//- (void) testFetchSms {
-//	BOOL res = [self.voice login];
-//	STAssertTrue(res, @"Login failed");
-//	
-//	NSString *retString = [self.voice fetchSms];
-//	
-//	STAssertNotNil(retString, @"Nil results getting SMS");
-//	STAssertTrue([retString length] > 0, @"Empty string getting SMS");
-//}
+- (void) testSendSmsTextToNumber {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL ok = [self.voice sendSmsText: @"Testing 1, 2, 3" toNumber: TEXT_PHONE_NUMBER];
+	
+	STAssertTrue(ok, @"Failed sending SMS");
+}
+
+- (void) testToggleDnd {
+	BOOL res = [self.voice login];
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL enabledAlready = self.voice.doNotDisturbEnabled;
+	
+	BOOL ok;
+	
+	if (enabledAlready) {
+		ok = [self.voice enableDoNotDisturb: NO];
+	} else {
+		ok = [self.voice enableDoNotDisturb: YES];
+	}
+	
+	STAssertTrue(ok, @"Failed to %@ DND", (enabledAlready ? @"disable" : @"enable"));
+	
+	if (enabledAlready) {
+		ok = [self.voice enableDoNotDisturb: YES];
+	} else {
+		ok = [self.voice enableDoNotDisturb: NO];
+	}
+	
+	STAssertTrue(ok, @"Failed to %@ DND", (enabledAlready ? @"re-disable" : @"re-enable"));
+}
+
+// "Call Presentation" is the pretty name for "directConnect". So, if directConnect is YES,
+// then calls will NOT be presented (i.e. you won't get an announcement, and ask if you want 
+// to take the call). If it is NO, then you WILL be asked if you want to take the call.
+- (void) testToggleCallPresentation {
+	BOOL res = [self.voice login];
+	STAssertTrue(res, @"Login failed");
+	
+	BOOL enabledAlready = self.voice.directConnectEnabled;
+	
+	BOOL ok;
+	
+	if (enabledAlready) {
+		ok = [self.voice enableCallPresentation: NO];
+	} else {
+		ok = [self.voice enableCallPresentation: YES];
+	}
+	
+	STAssertTrue(ok, @"Failed to %@ call presentation", (enabledAlready ? @"disable" : @"enable"));
+	
+	if (enabledAlready) {
+		ok = [self.voice enableCallPresentation: YES];
+	} else {
+		ok = [self.voice enableCallPresentation: NO];
+	}
+	
+	STAssertTrue(ok, @"Failed to %@ call presentation", (enabledAlready ? @"re-disable" : @"re-enable"));
+
+}
+
+- (void) testSelectGreeting {
+	BOOL res = [self.voice login];
+	STAssertTrue(res, @"Login failed");
+	
+	NSInteger currentGreetingId = self.voice.defaultGreetingId;
+	
+	NSArray *greetings = self.voice.allSettings.settings.greetings;
+	
+	NSInteger otherGreetingId = -1;
+	
+	for (NSDictionary *greeting in greetings) {
+		NSNumber *num = [greeting objectForKey: @"id"];
+		NSInteger id = [num integerValue];
+		
+		if (id != currentGreetingId) {
+			otherGreetingId = id;
+			break;
+		}
+	}
+	
+	if (otherGreetingId >= 0) {
+		BOOL ok = [self.voice selectGreeting: otherGreetingId];
+		
+		STAssertTrue(ok, @"Failed setting greeting");
+		
+		ok = [self.voice selectGreeting: currentGreetingId];
+		
+		STAssertTrue(ok, @"Failed re-setting greeting");
+	}
+}
+
+- (void) testFetchSms {
+	BOOL res = [self.voice login];
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *sms = [self.voice fetchSms];
+	
+	STAssertNotNil(sms, @"Nil results getting SMS");
+	STAssertTrue([sms count] > 0, @"Empty dictionary getting SMS");
+}
 
 - (void) testFetchGeneral {
 	BOOL res = [self.voice login];

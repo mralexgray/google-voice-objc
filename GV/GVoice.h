@@ -91,6 +91,9 @@ typedef enum {
 @property (nonatomic, assign) BOOL logToConsole;
 @property (nonatomic, retain) NSString *general;
 @property (nonatomic, retain) GVAllSettings *allSettings;
+@property (readonly) NSInteger defaultGreetingId;
+@property (readonly) BOOL directConnectEnabled;
+@property (readonly) BOOL doNotDisturbEnabled;
 
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType;
@@ -105,6 +108,7 @@ typedef enum {
 - (NSDictionary *) fetchGeneral;
 - (GVAllSettings *) fetchSettings;
 - (GVAllSettings *) forceFetchSettings: (BOOL) force;
+- (BOOL) isPhoneEnabled: (NSInteger) phoneId;
 - (BOOL) disablePhone: (NSInteger) phoneId;
 - (BOOL) enablePhone: (NSInteger) phoneId;
 - (NSArray *) disablePhones: (NSArray*) phones;
