@@ -108,6 +108,62 @@
 	STAssertTrue(ret, @"Failed to %@ phone", (enabledAlready ? @"re-disable" : @"re-enable"));
 }
 
+// This test will disable all enabled phones, and enable all disabled phones. It then
+// puts things back the way they started.
+- (void) testToggleAllPhones {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSMutableArray *phonesToEnable = [NSMutableArray array];
+	NSMutableArray *phonesToDisable = [NSMutableArray array];
+	NSInteger failureCount = 0;
+	
+	for (NSNumber *num in self.voice.allSettings.phoneList) {
+		NSInteger phoneId = [num integerValue];
+		
+		BOOL enabledAlready = [self.voice isPhoneEnabled: phoneId];
+		
+		NSLog(@"Phone %@ is %@", num, (enabledAlready ? @"enabled" : @"disabled"));
+			  
+		if (enabledAlready) {
+			[phonesToDisable addObject: num];
+		} else {
+			[phonesToEnable addObject: num];
+		}
+	}
+	
+	if ([phonesToDisable count] > 0) {
+		NSArray *retVals = [self.voice disablePhones: phonesToDisable];
+		
+		NSPredicate *predicate = [NSPredicate predicateWithValue: NO];
+		
+		NSArray *failed = [retVals filteredArrayUsingPredicate: predicate];
+		
+		if ([failed count] > 0) {
+			failureCount += [failed count];
+		}
+		
+		retVals = [self.voice enablePhones: phonesToDisable];
+	}
+	
+	if ([phonesToEnable count] > 0) {
+		NSArray *retVals = [self.voice enablePhones: phonesToEnable];
+		
+		NSPredicate *predicate = [NSPredicate predicateWithValue: NO];
+		
+		NSArray *failed = [retVals filteredArrayUsingPredicate: predicate];
+		
+		if ([failed count] > 0) {
+			failureCount += [failed count];
+		}
+		
+		retVals = [self.voice disablePhones: phonesToEnable];
+	}
+	
+	STAssertEquals(failureCount, 0, @"Failure count should be 0");
+}
+
 - (void) testSendSmsTextToNumber {
 	BOOL res = [self.voice login];
 	
@@ -203,16 +259,6 @@
 	}
 }
 
-- (void) testFetchSms {
-	BOOL res = [self.voice login];
-	STAssertTrue(res, @"Login failed");
-	
-	NSDictionary *sms = [self.voice fetchSms];
-	
-	STAssertNotNil(sms, @"Nil results getting SMS");
-	STAssertTrue([sms count] > 0, @"Empty dictionary getting SMS");
-}
-
 - (void) testFetchGeneral {
 	BOOL res = [self.voice login];
 	STAssertTrue(res, @"Login failed");
@@ -226,6 +272,115 @@
 	STAssertNotNil([dict objectForKey: RAW_DATA], @"General string is null");
 }
 
+- (void) testFetchInbox {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchInbox];
+	
+	STAssertNotNil(dict, @"Nil results fetching Inbox");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Inbox");
+}
+
+- (void) testFetchMissed {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchMissed];
+	
+	STAssertNotNil(dict, @"Nil results fetching Missed");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Missed");
+}
+
+- (void) testFetchPlaced {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchPlaced];
+	
+	STAssertNotNil(dict, @"Nil results fetching Placed");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Placed");
+}
+
+- (void) testFetchReceived {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchReceived];
+	
+	STAssertNotNil(dict, @"Nil results fetching Received");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Received");
+}
+
+- (void) testFetchRecent {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchRecent];
+	
+	STAssertNotNil(dict, @"Nil results fetching Recent");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Recent");
+}
+
+- (void) testFetchRecorded {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchRecorded];
+	
+	STAssertNotNil(dict, @"Nil results fetching Recorded");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Recorded");
+}
+
+- (void) testFetchSms {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchSms];
+	
+	STAssertNotNil(dict, @"Nil results fetching SMS");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching SMS");
+}
+
+- (void) testFetchSpam {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchSpam];
+	
+	STAssertNotNil(dict, @"Nil results fetching Spam");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Spam");
+}
+
+- (void) testFetchStarred {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchStarred];
+	
+	STAssertNotNil(dict, @"Nil results fetching Starred");
+	
+	STAssertTrue([dict count] > 0, @"No results fetching Starred");
+}
+
+//- (NSDictionary *) fetchRawPhonesInfo;
 
 
 

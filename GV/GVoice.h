@@ -29,7 +29,7 @@
 #define STARRED_URL_STRING @"https://www.google.com/voice/inbox/recent/starred/"
 #define RECENT_ALL_URL_STRING @"https://www.google.com/voice/inbox/recent/all/"
 #define SPAM_URL_STRING @"https://www.google.com/voice/inbox/recent/spam/"
-#define TRASH_URL_STRING @"https://www.google.com/voice/inbox/recent/spam/"
+#define TRASH_URL_STRING @"https://www.google.com/voice/inbox/recent/trash/"
 #define VOICE_MAIL_URL_STRING @"https://www.google.com/voice/inbox/recent/voicemail/"
 #define SMS_URL_STRING @"https://www.google.com/voice/inbox/recent/sms/"
 #define RECORDED_URL_STRING @"https://www.google.com/voice/inbox/recent/recorded/"

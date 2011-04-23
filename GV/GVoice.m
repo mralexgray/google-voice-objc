@@ -486,9 +486,17 @@
 }
 
 - (BOOL) isPhoneEnabled: (NSInteger) phoneId {
-	NSString *string = [NSString stringWithFormat: @"%d", phoneId];
+	BOOL found = NO;
 	
-	return ![self.allSettings.settings.disabledIds containsObject: string];
+	for (NSNumber *num in self.allSettings.settings.disabledIds) {
+		if ([num integerValue] == phoneId) {
+			found = YES;
+			break;
+		}
+	}
+	
+	// If the id IS found, that means it it disabled.
+	return !found;
 }
 
 #pragma mark - Life Cycle Methods
