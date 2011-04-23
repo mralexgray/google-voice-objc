@@ -20,8 +20,8 @@
     [super setUp];
     
     // Set-up code here.
-	self.voice = [[GVoice alloc] initWithUser: USERNAME password: PASSWORD source: SOURCE accountType: HOSTED];
-	self.voice.logToConsole = NO;
+	self.voice = [[GVoice alloc] initWithUser: USERNAME password: PASSWORD source: SOURCE accountType: TEST_ACCOUNT_TYPE];
+	self.voice.logToConsole = YES;
 }
 
 - (void)tearDown
@@ -32,17 +32,16 @@
     [super tearDown];
 }
 
-- (void) testLogin
-{
-	STAssertNotNil(self.voice, @"No voice object");
-	self.voice.logToConsole = YES;
-	
-	BOOL res = [self.voice login];
-	
-	if (!res) {
-		STFail(@"Failed Login: %@", self.voice.errorDescription);
-	}
-}
+//- (void) testLogin
+//{
+//	STAssertNotNil(self.voice, @"No voice object");
+//	
+//	BOOL res = [self.voice login];
+//	
+//	if (!res) {
+//		STFail(@"Failed Login: %@", self.voice.errorDescription);
+//	}
+//}
 //
 //- (void) testLoginWithBadCredentials
 //{
@@ -55,10 +54,10 @@
 //	if (!res) {
 //		self.voice.user = saveUser;
 //		
-//		STAssertTrue(self.voice.errorCode == BadAuthentication, @"Should have generated BadAuthentication");
+//		STAssertEquals(self.voice.errorCode, BadAuthentication, @"Should have generated BadAuthentication");
 //	}
 //}
-//
+
 //- (void) testGetSettings {
 //	BOOL res = [self.voice login];
 //	
@@ -114,7 +113,6 @@
 
 //- (void) testEnableDnd {
 //	BOOL res = [self.voice login];
-//	self.voice.logToConsole = YES;
 //	STAssertTrue(res, @"Login failed");
 //	
 //	BOOL ok = [self.voice enableDoNotDisturb: YES];
@@ -128,7 +126,6 @@
 
 //- (void) testEnableCallPresentation {
 //	BOOL res = [self.voice login];
-//	self.voice.logToConsole = YES;
 //	STAssertTrue(res, @"Login failed");
 //	
 //	BOOL ok = [self.voice enableCallPresentation: NO];
@@ -142,7 +139,6 @@
 
 //- (void) testSelectGreeting {
 //	BOOL res = [self.voice login];
-//	self.voice.logToConsole = YES;
 //	STAssertTrue(res, @"Login failed");
 //	
 //	BOOL ok = [self.voice selectGreeting: 6];
@@ -156,7 +152,6 @@
 
 //- (void) testFetchSms {
 //	BOOL res = [self.voice login];
-//	self.voice.logToConsole = YES;
 //	STAssertTrue(res, @"Login failed");
 //	
 //	NSString *retString = [self.voice fetchSms];
@@ -165,17 +160,18 @@
 //	STAssertTrue([retString length] > 0, @"Empty string getting SMS");
 //}
 
-//- (void) testFetchGeneral {
-//	BOOL res = [self.voice login];
-//	self.voice.logToConsole = YES;
-//	STAssertTrue(res, @"Login failed");
-//	
-//	NSDictionary *dict = [self.voice fetchGeneral];
-//	
-//	STAssertNotNil(dict, @"Nil results fetching General");
-//	
-////	STAssertTrue([dict ] > 0, @"Empty string fetching General");
-//}
+- (void) testFetchGeneral {
+	BOOL res = [self.voice login];
+	STAssertTrue(res, @"Login failed");
+	
+	NSDictionary *dict = [self.voice fetchGeneral];
+	
+	STAssertNotNil(dict, @"Nil results fetching General");
+		
+	STAssertTrue([dict count] == 1, @"No results fetching General");
+	
+	STAssertNotNil([dict objectForKey: RAW_DATA], @"General string is null");
+}
 
 
 

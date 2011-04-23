@@ -16,6 +16,8 @@
 #define MAX_REDIRECTS 5
 #define USER_AGENT @"Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US) AppleWebKit/525.13 (KHTML, like Gecko) Chrome/0.A.B.C Safari/525.13"
 
+#define RAW_DATA @"RAW_DATA"
+
 // HTTP Headers
 #define AUTHORIZATION_HEADER @"Authorization"
 #define USER_AGENT_HEADER @"User-agent"
@@ -76,7 +78,7 @@ typedef enum {
 	ErrorCode _errorCode;
 	BOOL _logToConsole;
 	
-	NSDictionary *_general;
+	NSString *_general;
 	NSString *_rnrSe;
 	GVAllSettings *_allSettings;
 }
@@ -87,7 +89,7 @@ typedef enum {
 @property (nonatomic, retain) NSString *password;
 @property (nonatomic, assign) ErrorCode errorCode;
 @property (nonatomic, assign) BOOL logToConsole;
-@property (nonatomic, retain) NSDictionary *general;
+@property (nonatomic, retain) NSString *general;
 @property (nonatomic, retain) GVAllSettings *allSettings;
 
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;

@@ -11,7 +11,7 @@
 		17176E471352984F00C11809 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E461352984F00C11809 /* UIKit.framework */; };
 		17176E481352984F00C11809 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E3B1352984F00C11809 /* Foundation.framework */; };
 		17176E4A1352984F00C11809 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E491352984F00C11809 /* CoreGraphics.framework */; };
-		17176E4D1352984F00C11809 /* libGV.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E381352984F00C11809 /* libGV.a */; };
+		17176E4D1352984F00C11809 /* libGVoice.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 17176E381352984F00C11809 /* libGVoice.a */; };
 		17176E531352984F00C11809 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 17176E511352984F00C11809 /* InfoPlist.strings */; };
 		17176E561352984F00C11809 /* GVTests.h in Resources */ = {isa = PBXBuildFile; fileRef = 17176E551352984F00C11809 /* GVTests.h */; };
 		17176E581352984F00C11809 /* GVTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 17176E571352984F00C11809 /* GVTests.m */; };
@@ -63,15 +63,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		17176E381352984F00C11809 /* libGV.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGV.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		17176E381352984F00C11809 /* libGVoice.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGVoice.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		17176E3B1352984F00C11809 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		17176E3F1352984F00C11809 /* GV-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GV-Prefix.pch"; sourceTree = "<group>"; };
-		17176E451352984F00C11809 /* GVTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		17176E3F1352984F00C11809 /* GVoice-Prefix.pch */ = {isa = PBXFileReference; path = "GVoice-Prefix.pch"; sourceTree = "<group>"; };
+		17176E451352984F00C11809 /* GVoiceTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GVoiceTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		17176E461352984F00C11809 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		17176E491352984F00C11809 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		17176E501352984F00C11809 /* GVTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GVTests-Info.plist"; sourceTree = "<group>"; };
+		17176E501352984F00C11809 /* GVoiceTests-Info.plist */ = {isa = PBXFileReference; path = "GVoiceTests-Info.plist"; sourceTree = "<group>"; };
 		17176E521352984F00C11809 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		17176E541352984F00C11809 /* GVTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GVTests-Prefix.pch"; sourceTree = "<group>"; };
+		17176E541352984F00C11809 /* GVoiceTests-Prefix.pch */ = {isa = PBXFileReference; path = "GVoiceTests-Prefix.pch"; sourceTree = "<group>"; };
 		17176E551352984F00C11809 /* GVTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GVTests.h; sourceTree = "<group>"; };
 		17176E571352984F00C11809 /* GVTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GVTests.m; sourceTree = "<group>"; };
 		1777C359135337C50063DA4E /* GVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVoice.h; sourceTree = "<group>"; };
@@ -124,7 +124,7 @@
 				17176E471352984F00C11809 /* UIKit.framework in Frameworks */,
 				17176E481352984F00C11809 /* Foundation.framework in Frameworks */,
 				17176E4A1352984F00C11809 /* CoreGraphics.framework in Frameworks */,
-				17176E4D1352984F00C11809 /* libGV.a in Frameworks */,
+				17176E4D1352984F00C11809 /* libGVoice.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,8 +134,8 @@
 		17176E2D1352984F00C11809 = {
 			isa = PBXGroup;
 			children = (
-				17176E3D1352984F00C11809 /* GV */,
-				17176E4E1352984F00C11809 /* GVTests */,
+				17176E3D1352984F00C11809 /* GVoice */,
+				17176E4E1352984F00C11809 /* GVoiceTests */,
 				17176E3A1352984F00C11809 /* Frameworks */,
 				17176E391352984F00C11809 /* Products */,
 			);
@@ -144,8 +144,8 @@
 		17176E391352984F00C11809 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				17176E381352984F00C11809 /* libGV.a */,
-				17176E451352984F00C11809 /* GVTests.octest */,
+				17176E381352984F00C11809 /* libGVoice.a */,
+				17176E451352984F00C11809 /* GVoiceTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,7 +160,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		17176E3D1352984F00C11809 /* GV */ = {
+		17176E3D1352984F00C11809 /* GVoice */ = {
 			isa = PBXGroup;
 			children = (
 				1777C36A13536E1E0063DA4E /* JSON */,
@@ -176,18 +176,19 @@
 				1777C3951353707C0063DA4E /* GVSettings.h */,
 				1777C3961353707C0063DA4E /* GVSettings.m */,
 			);
+			name = GVoice;
 			path = GV;
 			sourceTree = "<group>";
 		};
 		17176E3E1352984F00C11809 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				17176E3F1352984F00C11809 /* GV-Prefix.pch */,
+				17176E3F1352984F00C11809 /* GVoice-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		17176E4E1352984F00C11809 /* GVTests */ = {
+		17176E4E1352984F00C11809 /* GVoiceTests */ = {
 			isa = PBXGroup;
 			children = (
 				17176E4F1352984F00C11809 /* Supporting Files */,
@@ -197,15 +198,16 @@
 				1777C367135368F20063DA4E /* ParsingUtilsTests.h */,
 				1777C368135368F20063DA4E /* ParsingUtilsTests.m */,
 			);
+			name = GVoiceTests;
 			path = GVTests;
 			sourceTree = "<group>";
 		};
 		17176E4F1352984F00C11809 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				17176E501352984F00C11809 /* GVTests-Info.plist */,
+				17176E501352984F00C11809 /* GVoiceTests-Info.plist */,
 				17176E511352984F00C11809 /* InfoPlist.strings */,
-				17176E541352984F00C11809 /* GVTests-Prefix.pch */,
+				17176E541352984F00C11809 /* GVoiceTests-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -265,9 +267,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		17176E371352984F00C11809 /* GV */ = {
+		17176E371352984F00C11809 /* GVoice */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GV" */;
+			buildConfigurationList = 17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVoice" */;
 			buildPhases = (
 				17176E341352984F00C11809 /* Sources */,
 				17176E351352984F00C11809 /* Frameworks */,
@@ -277,14 +279,14 @@
 			);
 			dependencies = (
 			);
-			name = GV;
+			name = GVoice;
 			productName = GV;
-			productReference = 17176E381352984F00C11809 /* libGV.a */;
+			productReference = 17176E381352984F00C11809 /* libGVoice.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		17176E441352984F00C11809 /* GVTests */ = {
+		17176E441352984F00C11809 /* GVoiceTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVTests" */;
+			buildConfigurationList = 17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVoiceTests" */;
 			buildPhases = (
 				17176E401352984F00C11809 /* Sources */,
 				17176E411352984F00C11809 /* Frameworks */,
@@ -296,9 +298,9 @@
 			dependencies = (
 				17176E4C1352984F00C11809 /* PBXTargetDependency */,
 			);
-			name = GVTests;
+			name = GVoiceTests;
 			productName = GVTests;
-			productReference = 17176E451352984F00C11809 /* GVTests.octest */;
+			productReference = 17176E451352984F00C11809 /* GVoiceTests.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -309,7 +311,7 @@
 			attributes = {
 				ORGANIZATIONNAME = "Spectrum K12 School Solutions, Inc.";
 			};
-			buildConfigurationList = 17176E321352984F00C11809 /* Build configuration list for PBXProject "GV" */;
+			buildConfigurationList = 17176E321352984F00C11809 /* Build configuration list for PBXProject "GVoice" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -321,8 +323,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				17176E371352984F00C11809 /* GV */,
-				17176E441352984F00C11809 /* GVTests */,
+				17176E371352984F00C11809 /* GVoice */,
+				17176E441352984F00C11809 /* GVoiceTests */,
 			);
 		};
 /* End PBXProject section */
@@ -395,7 +397,7 @@
 /* Begin PBXTargetDependency section */
 		17176E4C1352984F00C11809 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 17176E371352984F00C11809 /* GV */;
+			target = 17176E371352984F00C11809 /* GVoice */;
 			targetProxy = 17176E4B1352984F00C11809 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -447,7 +449,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /tmp/GV.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GV/GV-Prefix.pch";
+				GCC_PREFIX_HEADER = "GV/GVoice-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -459,7 +461,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				DSTROOT = /tmp/GV.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GV/GV-Prefix.pch";
+				GCC_PREFIX_HEADER = "GV/GVoice-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -474,8 +476,8 @@
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GVTests/GVTests-Prefix.pch";
-				INFOPLIST_FILE = "GVTests/GVTests-Info.plist";
+				GCC_PREFIX_HEADER = "GVTests/GVoiceTests-Prefix.pch";
+				INFOPLIST_FILE = "GVTests/GVoiceTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -494,8 +496,8 @@
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "GVTests/GVTests-Prefix.pch";
-				INFOPLIST_FILE = "GVTests/GVTests-Info.plist";
+				GCC_PREFIX_HEADER = "GVTests/GVoiceTests-Prefix.pch";
+				INFOPLIST_FILE = "GVTests/GVoiceTests-Info.plist";
 				OTHER_LDFLAGS = (
 					"-framework",
 					SenTestingKit,
@@ -508,7 +510,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		17176E321352984F00C11809 /* Build configuration list for PBXProject "GV" */ = {
+		17176E321352984F00C11809 /* Build configuration list for PBXProject "GVoice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17176E591352984F00C11809 /* Debug */,
@@ -517,7 +519,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GV" */ = {
+		17176E5B1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVoice" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17176E5C1352984F00C11809 /* Debug */,
@@ -526,7 +528,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVTests" */ = {
+		17176E5E1352984F00C11809 /* Build configuration list for PBXNativeTarget "GVoiceTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				17176E5F1352984F00C11809 /* Debug */,
