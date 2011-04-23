@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GVSettings : NSObject {
+@interface GVoiceSettings : NSObject {
 	@private
 	NSArray *_activeForwardingList;
 	NSString *_baseUrl;

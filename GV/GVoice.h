@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class GVAllSettings;
+@class GVoiceAllSettings;
 
 // Important Constants
 #define SERVICE @"grandcentral"
@@ -56,17 +56,17 @@ typedef enum {
 	ServiceDisabled,
 	ServiceUnavailable,
 	TooManyRedirects
-} ErrorCode;
+} GVoiceErrorCode;
 
 typedef enum {
 	GOOGLE,
 	HOSTED,
 	HOSTED_OR_GOOGLE
-} AccountType;
+} GVoiceAccountType;
 
 @interface GVoice : NSObject {
     @private
-	AccountType _accountType;
+	GVoiceAccountType _accountType;
 	NSString *_source;
 	NSString *_user;
 	NSString *_password;
@@ -75,29 +75,29 @@ typedef enum {
 	NSString *_captchaUrl;
 	NSString *_captchaUrl2;
 	NSInteger _redirectCounter;
-	ErrorCode _errorCode;
+	GVoiceErrorCode _errorCode;
 	BOOL _logToConsole;
 	
 	NSString *_general;
 	NSString *_rnrSe;
-	GVAllSettings *_allSettings;
+	GVoiceAllSettings *_allSettings;
 }
 
-@property (nonatomic, assign) AccountType accountType;
+@property (nonatomic, assign) GVoiceAccountType accountType;
 @property (nonatomic, retain) NSString *source;
 @property (nonatomic, retain) NSString *user;
 @property (nonatomic, retain) NSString *password;
-@property (nonatomic, assign) ErrorCode errorCode;
+@property (nonatomic, assign) GVoiceErrorCode errorCode;
 @property (nonatomic, assign) BOOL logToConsole;
 @property (nonatomic, retain) NSString *general;
-@property (nonatomic, retain) GVAllSettings *allSettings;
+@property (nonatomic, retain) GVoiceAllSettings *allSettings;
 @property (readonly) NSInteger defaultGreetingId;
 @property (readonly) BOOL directConnectEnabled;
 @property (readonly) BOOL doNotDisturbEnabled;
 
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType;
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType 
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType;
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType 
 	captchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken;
 
 - (BOOL) login;
@@ -106,8 +106,8 @@ typedef enum {
 - (NSString *) errorDescription;
 
 - (NSDictionary *) fetchGeneral;
-- (GVAllSettings *) fetchSettings;
-- (GVAllSettings *) forceFetchSettings: (BOOL) force;
+- (GVoiceAllSettings *) fetchSettings;
+- (GVoiceAllSettings *) forceFetchSettings: (BOOL) force;
 - (BOOL) isPhoneEnabled: (NSInteger) phoneId;
 - (BOOL) disablePhone: (NSInteger) phoneId;
 - (BOOL) enablePhone: (NSInteger) phoneId;

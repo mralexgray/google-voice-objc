@@ -6,9 +6,9 @@
 //  Copyright Joey Gibson <joey@joeygibson.com>. All rights reserved.
 //
 
-#import "GVAllSettings.h"
+#import "GVoiceAllSettings.h"
 
-@implementation GVAllSettings
+@implementation GVoiceAllSettings
 
 @synthesize phoneList = _phoneList;
 @synthesize phones = _phones;
@@ -21,7 +21,7 @@
 	if (self) {
 		self.phoneList = [dict objectForKey: @"phoneList"];
 		self.phones = [dict objectForKey: @"phones"];
-		self.settings = [[GVSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
+		self.settings = [[GVoiceSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
 	}
 	
 	return self;

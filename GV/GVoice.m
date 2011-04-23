@@ -9,7 +9,7 @@
 #import "GVoice.h"
 #import "NSString-GVoice.h"
 #import "ParsingUtils.h"
-#import "GVAllSettings.h"
+#import "GVoiceAllSettings.h"
 #import "JSON.h"
 
 #pragma mark - Private Properties
@@ -135,7 +135,7 @@
 				 captchaToken: nil];
 }
 
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType {
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType {
 	return [self initWithUser: user
 					 password: password
 					   source: source
@@ -144,7 +144,7 @@
 				 captchaToken: nil];	
 }
 
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (AccountType) accountType 
+- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType 
 	captchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken {
 	self = [super init];
 	
@@ -516,15 +516,15 @@
 }
 
 #pragma mark - Google Voice Methods
-- (GVAllSettings *) fetchSettings {
+- (GVoiceAllSettings *) fetchSettings {
 	return [self forceFetchSettings: NO];
 }
 
-- (GVAllSettings *) forceFetchSettings: (BOOL) force {
+- (GVoiceAllSettings *) forceFetchSettings: (BOOL) force {
 	if (!self.allSettings || force) {
 		NSDictionary *dict = [self fetchFromUrl: GROUPS_INFO_URL_STRING];
 
-		GVAllSettings *settings = [[GVAllSettings alloc] initWithDictionary: dict];
+		GVoiceAllSettings *settings = [[GVoiceAllSettings alloc] initWithDictionary: dict];
 		
 		self.allSettings = settings;
 	}

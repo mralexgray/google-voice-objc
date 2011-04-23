@@ -8,8 +8,8 @@
 
 #import "GVTests.h"
 #import "GVCredentials.h"
-#import "GVAllSettings.h"
-#import "GVSettings.h"
+#import "GVoiceAllSettings.h"
+#import "GVoiceSettings.h"
 
 @implementation GVTests
 
@@ -20,7 +20,8 @@
     [super setUp];
     
     // Set-up code here.
-	self.voice = [[GVoice alloc] initWithUser: USERNAME password: PASSWORD source: SOURCE accountType: TEST_ACCOUNT_TYPE];
+	self.voice = [[GVoice alloc] initWithUser: USERNAME password: PASSWORD source: SOURCE 
+								  accountType: TEST_ACCOUNT_TYPE];
 	self.voice.logToConsole = YES;
 }
 
@@ -63,13 +64,13 @@
 	
 	STAssertTrue(res, @"Login failed");
 	
-	GVAllSettings *allSettings = [self.voice fetchSettings];
+	GVoiceAllSettings *allSettings = [self.voice fetchSettings];
 	
 	STAssertNotNil(allSettings, @"Settings should not be nil");
 	STAssertNotNil(allSettings.phoneList, @"phoneList should not be nil");
 	STAssertNotNil(allSettings.phones, @"phones should not be nil");
 
-	GVSettings *settings = allSettings.settings;
+	GVoiceSettings *settings = allSettings.settings;
 	
 	STAssertNotNil(settings, @"settings should not be nil");
 	

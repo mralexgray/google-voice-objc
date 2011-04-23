@@ -6,9 +6,9 @@
 //  Copyright Joey Gibson <joey@joeygibson.com>. All rights reserved.
 //
 
-#import "GVSettings.h"
+#import "GVoiceSettings.h"
 
-@implementation GVSettings
+@implementation GVoiceSettings
 
 @synthesize activeForwardingList = _activeForwardingList;
 @synthesize baseUrl = _baseUrl;

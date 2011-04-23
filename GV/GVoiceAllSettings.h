@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GVSettings.h"
+#import "GVoiceSettings.h"
 
-@interface GVAllSettings : NSObject {
+@interface GVoiceAllSettings : NSObject {
     NSArray *_phoneList;
 	NSDictionary *_phones;
-	GVSettings *_settings;
+	GVoiceSettings *_settings;
 }
 
 @property (nonatomic, retain) NSArray *phoneList;
 @property (nonatomic, retain) NSDictionary *phones;
-@property (nonatomic, retain) GVSettings *settings;
+@property (nonatomic, retain) GVoiceSettings *settings;
 
 - (id) initWithDictionary: (NSDictionary *) dict;
 @end
