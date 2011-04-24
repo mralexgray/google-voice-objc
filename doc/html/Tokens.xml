@@ -236,6 +236,24 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>CALL_URL_STRING</Name>
+      <APILanguage>c</APILanguage>
+      <Type>macro</Type>
+    </TokenIdentifier>
+    <Path>_g_voice_8h.html</Path>
+    <Anchor>a01fe792763233b50aa9ef156d10c0736</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>CANCEL_CALL_URL_STRING</Name>
+      <APILanguage>c</APILanguage>
+      <Type>macro</Type>
+    </TokenIdentifier>
+    <Path>_g_voice_8h.html</Path>
+    <Anchor>a4a7d222e4a315b2b1ff11fba775f6062</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>GOOGLE</Name>
       <APILanguage>c</APILanguage>
       <Type>econst</Type>
@@ -712,6 +730,26 @@
   </Token>
   <Token>
     <TokenIdentifier>
+      <Name>callNumber:fromPhoneId:</Name>
+      <APILanguage>occ</APILanguage>
+      <Type>instm</Type>
+      <Scope>GVoice</Scope>
+    </TokenIdentifier>
+    <Path>interface_g_voice.html</Path>
+    <Anchor>a0b10d8c8c951aed6fd1b61bce3a056a0</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>cancelCallToNumber:fromPhoneId:</Name>
+      <APILanguage>occ</APILanguage>
+      <Type>instm</Type>
+      <Scope>GVoice</Scope>
+    </TokenIdentifier>
+    <Path>interface_g_voice.html</Path>
+    <Anchor>aad3023f882d0f6b200b3854507ccf919</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
       <Name>accountType</Name>
       <APILanguage>occ</APILanguage>
       <Type>instp</Type>
@@ -809,6 +847,16 @@
     </TokenIdentifier>
     <Path>interface_g_voice.html</Path>
     <Anchor>a8d8728b04620414a5131c50a520f6ef2</Anchor>
+  </Token>
+  <Token>
+    <TokenIdentifier>
+      <Name>rawErrorText</Name>
+      <APILanguage>occ</APILanguage>
+      <Type>instp</Type>
+      <Scope>GVoice</Scope>
+    </TokenIdentifier>
+    <Path>interface_g_voice.html</Path>
+    <Anchor>a763a2e4b7e80e36fd600324940a7ef33</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>
@@ -948,7 +996,7 @@
       <Scope>GVoiceSettings</Scope>
     </TokenIdentifier>
     <Path>interface_g_voice_settings.html</Path>
-    <Anchor>a19c584807bd165e40c703d78a7621c39</Anchor>
+    <Anchor>a443d82e7bd3c51f64042ebbdf36a26e9</Anchor>
   </Token>
   <Token>
     <TokenIdentifier>

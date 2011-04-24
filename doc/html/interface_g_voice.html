@@ -106,6 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a877a2c8f14027efd5074d9e96ab15e09">enableCallPresentation:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#af903875a177b0aa8fc35d9a109b4da65">enableDoNotDisturb:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a02363de62dc74b950a1bd08865515aed">selectGreeting:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a0b10d8c8c951aed6fd1b61bce3a056a0">callNumber:fromPhoneId:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#aad3023f882d0f6b200b3854507ccf919">cancelCallToNumber:fromPhoneId:</a></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_voice_8h.html#af1faa1eb1e878558fb13cc7a25b57b0d">GVoiceAccountType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a73c6eaaf355464db9a567c9ad7a23735">accountType</a></td></tr>
@@ -118,8 +120,81 @@ Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#acf0806c0afe6d3c226468ef2ac3ff992">defaultGreetingId</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a0a1acf6b9f5b12f3c804f6a4be1bd58e">directConnectEnabled</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a8d8728b04620414a5131c50a520f6ef2">doNotDisturbEnabled</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a763a2e4b7e80e36fd600324940a7ef33">rawErrorText</a></td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a0b10d8c8c951aed6fd1b61bce3a056a0"></a><!-- doxytag: member="GVoice::callNumber:fromPhoneId:" ref="a0b10d8c8c951aed6fd1b61bce3a056a0" args="(NSString *destinationNumber,[fromPhoneId] NSInteger phoneId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) callNumber: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>destinationNumber</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">fromPhoneId:</td>
+          <td></td>
+          <td class="paramtype">(NSInteger)&#160;</td>
+          <td class="paramname"><em>phoneId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Call a phone, attaching it to the specified phoneId. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">destinationNumber</td><td>the phone number to call </td></tr>
+    <tr><td class="paramname">phoneId</td><td>the Google Voice id of the phone you want to use for the call </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>YES or NO, if the operation succeeded or not </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="aad3023f882d0f6b200b3854507ccf919"></a><!-- doxytag: member="GVoice::cancelCallToNumber:fromPhoneId:" ref="aad3023f882d0f6b200b3854507ccf919" args="(NSString *destinationNumber,[fromPhoneId] NSInteger phoneId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) cancelCallToNumber: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>destinationNumber</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">fromPhoneId:</td>
+          <td></td>
+          <td class="paramtype">(NSInteger)&#160;</td>
+          <td class="paramname"><em>phoneId</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Cancel a call between the destination number and the specified phoneId, that was begun with callNumber:fromPhoneId. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">destinationNumber</td><td>the phone number to call </td></tr>
+    <tr><td class="paramname">phoneId</td><td>the Google Voice id of the phone you want to use for the call </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>YES or NO, if the operation succeeded or not </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a5ecc312ac7a1492ba8aff33ff71883e1"></a><!-- doxytag: member="GVoice::disablePhone:" ref="a5ecc312ac7a1492ba8aff33ff71883e1" args="(NSInteger phoneId)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1034,6 +1109,20 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a763a2e4b7e80e36fd600324940a7ef33"></a><!-- doxytag: member="GVoice::rawErrorText" ref="a763a2e4b7e80e36fd600324940a7ef33" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString*) rawErrorText<code> [read, write, retain]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If an error of type Unknown occurrs, we will stick whatever we got back from GV here as a debugging aid. </p>
+
+</div>
+</div>
 <a class="anchor" id="a031f3e5a90cbcfcecc0f9e8952137e7a"></a><!-- doxytag: member="GVoice::source" ref="a031f3e5a90cbcfcecc0f9e8952137e7a" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -1082,7 +1171,7 @@ Properties</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 00:39:01 for GVoice by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 19:16:58 for GVoice by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
