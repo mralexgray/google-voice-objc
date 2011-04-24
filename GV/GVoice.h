@@ -22,7 +22,9 @@
 #define AUTHORIZATION_HEADER @"Authorization"
 #define USER_AGENT_HEADER @"User-agent"
 
-// URLs
+/**
+ * The URLs that lead to various parts of Google Voice.
+ */
 #define GENERAL_URL_STRING @"https://www.google.com/voice/"
 #define LOGIN_URL_STRING @"https://www.google.com/accounts/ClientLogin"
 #define INBOX_URL_STRING @"https://www.google.com/voice/inbox/recent/inbox/"
@@ -44,6 +46,9 @@
 #define GROUPS_SETTINGS_URL_STRING @"https://www.google.com/voice/settings/editGroup/"
 #define SMS_SEND_URL_STRING @"https://www.google.com/voice/sms/send/"
 
+/**
+ * Error codes that can come back from Google Voice.
+ */
 typedef enum {
 	NoError,
 	BadAuthentication,
@@ -58,12 +63,25 @@ typedef enum {
 	TooManyRedirects
 } GVoiceErrorCode;
 
+/**
+ * Types of Google Voice accounts.
+ *
+ * It's better to use either GOOGLE or HOSTED, but not the 
+ * combined HOSTED_OR_GOOGLE.
+ */
 typedef enum {
 	GOOGLE,
 	HOSTED,
 	HOSTED_OR_GOOGLE
 } GVoiceAccountType;
 
+/**
+ * The interface to Google Voice. 
+ *
+ * This class provides methods to do most of what you'd want to
+ * do with Google Voice. You can send SMS messages, initiate calls, enable/disable phones, change 
+ * various settings, and download messages. Among other things.
+ */
 @interface GVoice : NSObject {
     @private
 	GVoiceAccountType _accountType;
@@ -83,19 +101,69 @@ typedef enum {
 	GVoiceAllSettings *_allSettings;
 }
 
+/**
+ * What type of Google Voice account we are working with.
+ */
 @property (nonatomic, assign) GVoiceAccountType accountType;
+
+/**
+ * Source is required by Google. It should be of the form company-product-version
+ *
+ * @see http://code.google.com/apis/accounts/docs/AuthForInstalledApps.html#Request
+ */
 @property (nonatomic, retain) NSString *source;
+
+/**
+ * The username that will be used for GV access.
+ */
 @property (nonatomic, retain) NSString *user;
+
+/**
+ * The password that will be used for GV access.
+ */
 @property (nonatomic, retain) NSString *password;
+
+/**
+ * The result of some sort of error from GV. 
+ */
 @property (nonatomic, assign) GVoiceErrorCode errorCode;
+
+/**
+ * Whether to log output using NSLog(). Default is NO.
+ */
 @property (nonatomic, assign) BOOL logToConsole;
-@property (nonatomic, retain) NSString *general;
+
+/**
+ * The top-level settings for GV. 
+ */
 @property (nonatomic, retain) GVoiceAllSettings *allSettings;
+
+/**
+ * Convenience access to allSettings.settings.defaultGreetingId
+ */
 @property (readonly) NSInteger defaultGreetingId;
+
+/**
+ * Convenience access to allSettings.settings.directConnect
+ */
 @property (readonly) BOOL directConnectEnabled;
+
+/**
+ * Convenience accesc to allSettings.settings.doNotDisturb
+ */
 @property (readonly) BOOL doNotDisturbEnabled;
 
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source;
+/**
+ * The init method that will be used most often. 
+ *
+ * This creates a GVoice object that is ready for use, though it has NOT been logged-in yet.
+ * @param user the user's GV username
+ * @param password the user's GV password
+ * @param source the parameter required by GV for logging
+ * @param accountType what type of account we are working with
+ *
+ * @see http://code.google.com/apis/accounts/docs/AuthForInstalledApps.html#Request
+ */
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType;
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType 
 	captchaResponse: (NSString *) captchaResponse captchaToken: (NSString *) captchaToken;

@@ -14,6 +14,7 @@
 
 #pragma mark - Private Properties
 @interface GVoice ()
+@property (nonatomic, retain) NSString *general;
 @property (nonatomic, retain) NSString *authToken;
 @property (nonatomic, retain) NSString *captchaToken;
 @property (nonatomic, retain) NSString *captchaUrl;
@@ -126,15 +127,6 @@
 }
 
 #pragma mark - Initialization Methods
-- (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source {
-	return [self initWithUser: user
-					 password: password
-					   source: source
-				  accountType: GOOGLE
-			  captchaResponse: nil
-				 captchaToken: nil];
-}
-
 - (id) initWithUser: (NSString *) user password: (NSString *) password source: (NSString *) source accountType: (GVoiceAccountType) accountType {
 	return [self initWithUser: user
 					 password: password
