@@ -45,7 +45,7 @@
 	NSInteger _defaultGreetingId;
 	NSArray *_didInfos;
 	BOOL _directConnect;
-	NSArray *_disabledIds;
+	NSDictionary *_disabledIds;
     BOOL _doNotDisturb;
     NSArray *_emailAddresses;
 	BOOL _emailNotificationActive;
@@ -72,7 +72,7 @@
 @property (nonatomic, assign) NSInteger defaultGreetingId;
 @property (nonatomic, retain) NSArray *didInfos;
 @property (nonatomic, assign) BOOL directConnect;
-@property (nonatomic, retain) NSArray *disabledIds;
+@property (nonatomic, retain) NSDictionary *disabledIds;
 @property (nonatomic, assign) BOOL doNotDisturb;
 @property (nonatomic, retain) NSArray *emailAddresses;
 @property (nonatomic, assign) BOOL emailNotificationActive;

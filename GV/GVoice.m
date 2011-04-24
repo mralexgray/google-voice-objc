@@ -542,13 +542,33 @@
 - (BOOL) disablePhone: (NSInteger) phoneId {
 	NSString *paraString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 	
-	return [self enableOrDisablePhone: paraString];	
+	BOOL res = [self enableOrDisablePhone: paraString];	
+	
+	if (res) {
+		NSMutableDictionary *disabledPhones = [self.allSettings.settings.disabledIds mutableCopy];
+		[disabledPhones setValue: [NSNumber numberWithBool: YES] forKey: [NSString stringWithFormat: @"%d", phoneId]];
+		
+		self.allSettings.settings.disabledIds = disabledPhones;
+	}
+	
+	return res;
 }
 
 - (BOOL) enablePhone: (NSInteger) phoneId {
 	NSString *paraString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 
-	return [self enableOrDisablePhone: paraString];
+	BOOL res = [self enableOrDisablePhone: paraString];
+	
+	if (res) {
+		NSMutableDictionary *disabledPhones = [self.allSettings.settings.disabledIds mutableCopy];
+		NSString *num = [NSString stringWithFormat: @"%d", phoneId];
+		
+		[disabledPhones removeObjectForKey: num];
+		
+		self.allSettings.settings.disabledIds = disabledPhones;
+	}
+	
+	return res;
 }
 
 - (NSArray *) disablePhones: (NSArray*) phones {
@@ -656,7 +676,13 @@
 	
 	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
 	
-	return [[dict objectForKey: @"ok"] boolValue];
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (res) {
+		self.allSettings.settings.directConnect = enable;
+	}
+	
+	return res;
 }
 
 - (BOOL) enableDoNotDisturb: (BOOL) doNotDisturb {
@@ -666,7 +692,13 @@
 	
 	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
 	
-	return [[dict objectForKey: @"ok"] boolValue];
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (res) {
+		self.allSettings.settings.doNotDisturb = doNotDisturb;
+	}
+	
+	return res;
 }
 
 - (BOOL) doNotDisturbEnabled {
@@ -680,7 +712,13 @@
 	
 	NSDictionary *dict = [self postParameters: params toUrl: GENERAL_SETTING_URL_STRING];
 	
-	return [[dict objectForKey: @"ok"] boolValue];
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (res) {
+		self.allSettings.settings.defaultGreetingId = greetingId;
+	}
+	
+	return res;
 }
 
 // "Call Presentation" is the pretty name for "directConnect". So, if directConnect is YES,
