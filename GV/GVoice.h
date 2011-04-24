@@ -132,6 +132,7 @@ typedef enum {
 	NSString *_general;
 	NSString *_rnrSe;
 	GVoiceAllSettings *_allSettings;
+	NSString *_rawErrorText;
 }
 
 /**
@@ -189,6 +190,12 @@ typedef enum {
  * Convenience accesc to allSettings.settings.doNotDisturb
  */
 @property (readonly) BOOL doNotDisturbEnabled;
+
+/**
+ * If an error of type Unknown occurrs, we will stick whatever we got back 
+ * from GV here as a debugging aid.
+ */
+@property (nonatomic, retain) NSString *rawErrorText;
 
 /**
  * The designated initializer.

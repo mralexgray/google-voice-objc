@@ -64,6 +64,7 @@
 @synthesize general = _general;
 @synthesize rnrSe = _rnrSe;
 @synthesize allSettings = _allSettings;
+@synthesize rawErrorText = _rawErrorText;
 
 #pragma mark - Utility Methods
 - (void) setErrorCodeFromReturnValue: (NSString *) retValue {
@@ -260,7 +261,19 @@
 	return [NSString stringWithFormat: @"GoogleLogin auth=%@", self.authToken];	
 }
 
+- (void) clearError {
+	self.errorCode = NoError;
+	self.rawErrorText = nil;
+}
+
+- (void) signalError: (NSDictionary *) dict {
+	self.errorCode = Unknown;
+	self.rawErrorText = [NSString stringWithFormat: @"%@", dict];
+}
+
 - (NSDictionary *) fetchPage: (NSInteger) page fromUrl: (NSString *) urlString asDictionary: (BOOL) asDictionary {
+	[self clearError];
+	
 	NSString *fullUrlString;
 	
 	if (page == 0) {
@@ -273,8 +286,8 @@
 	
 	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
 		
-	[request setValue: [self fullAuthString] forHTTPHeaderField: @"Authorization"];
-	[request setValue: USER_AGENT forHTTPHeaderField: @"User-agent"];
+	[request setValue: [self fullAuthString] forHTTPHeaderField: AUTHORIZATION_HEADER];
+	[request setValue: USER_AGENT forHTTPHeaderField: USER_AGENT_HEADER];
 
 	NSHTTPURLResponse *resp = nil;
 	NSError *err = nil;
@@ -329,6 +342,11 @@
 		}
 	}
 	
+	if (!dict || [dict count] == 0) {
+		self.errorCode = Unknown;
+		self.rawErrorText = retString;
+	}
+	
 	return dict;
 }
 
@@ -345,6 +363,8 @@
 }
 
 - (NSDictionary *) postParameters: (NSString *) params toUrl: (NSString *) urlString {
+	[self clearError];
+	
 	NSData *requestData = [NSData dataWithBytes: [params UTF8String] length: [params length]];
 	
 	NSURL *url = [NSURL URLWithString: urlString];
@@ -384,6 +404,11 @@
 	
 	[json release];
 	
+	if (!dict || [dict count] == 0) {
+		self.errorCode = Unknown;
+		self.rawErrorText = retString;
+	}
+	
 	return dict;
 }
 
@@ -404,68 +429,6 @@
 	}
 
 	return rnr;
-}
-
-- (BOOL) enableOrDisablePhone: (NSString *) paramString {
-	BOOL ok = NO;
-	
-	NSData *requestData = [NSData dataWithBytes: [paramString UTF8String] length: [paramString length]];
-	
-	NSURL *url = [NSURL URLWithString: PHONE_ENABLE_URL_STRING];
-	NSMutableURLRequest *request = [[NSMutableURLRequest alloc] initWithURL: url];
-	
-	[request setHTTPMethod: @"POST"];
-	[request setHTTPBody: requestData];
-	
-	[request setValue: [self fullAuthString] forHTTPHeaderField: AUTHORIZATION_HEADER];
-	[request setValue: USER_AGENT forHTTPHeaderField: USER_AGENT_HEADER];
-	
-	NSHTTPURLResponse *resp = nil;
-	NSError *err = nil;
-	
-	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
-	
-	if (err) {
-		if (self.logToConsole) {
-			NSLog(@"GVoice enableOrDisablePhone Error: %@", err);
-		}
-		
-		self.errorCode = Unknown;
-		
-		ok = NO;
-	} else {
-		NSInteger statusCode = resp.statusCode;
-		
-		if (statusCode == 200) {
-			NSString *retString = [[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding];
-			
-			SBJsonParser *json = [[SBJsonParser alloc] init];
-			NSDictionary *dict = [json objectWithString: retString];
-			
-			ok = [[dict objectForKey: @"ok"] boolValue];
-						
-			[retString release];
-			[json release];
-		} else if (statusCode == 301 ||
-				   statusCode == 302 ||
-				   statusCode == 303 ||
-				   statusCode == 307) {
-			self.redirectCounter++;
-			
-			if (self.redirectCounter > MAX_REDIRECTS) {
-				self.redirectCounter = 0;
-				
-				self.errorCode = TooManyRedirects;
-			}
-			
-			// Need to handle redirect
-		}
-	}
-	
-	[request release];
-	
-	// At this point, we need to change enabled/disabled for the given phone
-	return ok;
 }
 
 - (NSArray *) enableOrDisable: (BOOL) enabled phones: (NSArray *) phones  {
@@ -514,6 +477,7 @@
     [_general release], _general = nil;
     [_rnrSe release], _rnrSe = nil;	
     [_allSettings release], _allSettings = nil;
+	[_rawErrorText release], _rawErrorText = nil;
 	
 	[super dealloc];
 }
@@ -540,24 +504,30 @@
 }
 
 - (BOOL) disablePhone: (NSInteger) phoneId {
-	NSString *paraString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
+	NSString *paramString = [NSString stringWithFormat: @"enabled=0&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 	
-	BOOL res = [self enableOrDisablePhone: paraString];	
+	NSDictionary *resDict = [self postParameters: paramString toUrl: PHONE_ENABLE_URL_STRING];
+	
+	BOOL res = [[resDict objectForKey: @"ok"] boolValue];
 	
 	if (res) {
 		NSMutableDictionary *disabledPhones = [self.allSettings.settings.disabledIds mutableCopy];
 		[disabledPhones setValue: [NSNumber numberWithBool: YES] forKey: [NSString stringWithFormat: @"%d", phoneId]];
 		
 		self.allSettings.settings.disabledIds = disabledPhones;
+	} else {
+		[self signalError: resDict];
 	}
 	
 	return res;
 }
 
 - (BOOL) enablePhone: (NSInteger) phoneId {
-	NSString *paraString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
+	NSString *paramString = [NSString stringWithFormat: @"enabled=1&phoneId=%d&_rnr_se=%@", phoneId, [self.rnrSe urlEncoded]];
 
-	BOOL res = [self enableOrDisablePhone: paraString];
+	NSDictionary *resDict = [self postParameters: paramString toUrl: PHONE_ENABLE_URL_STRING];
+	
+	BOOL res = [[resDict objectForKey: @"ok"] boolValue];
 	
 	if (res) {
 		NSMutableDictionary *disabledPhones = [self.allSettings.settings.disabledIds mutableCopy];
@@ -566,6 +536,8 @@
 		[disabledPhones removeObjectForKey: num];
 		
 		self.allSettings.settings.disabledIds = disabledPhones;
+	} else {
+		[self signalError: resDict];
 	}
 	
 	return res;
@@ -663,7 +635,13 @@
 	
 	NSDictionary *dict = [self postParameters: params toUrl: SMS_SEND_URL_STRING];
 	
-	return [[dict objectForKey: @"ok"] boolValue];
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (!res) {
+		[self signalError: dict];
+	}
+	
+	return res;
 }
 
 // "Call Presentation" is the pretty name for "directConnect". So, if directConnect is YES,
@@ -680,6 +658,8 @@
 	
 	if (res) {
 		self.allSettings.settings.directConnect = enable;
+	} else {
+		[self signalError: dict];
 	}
 	
 	return res;
@@ -696,6 +676,8 @@
 	
 	if (res) {
 		self.allSettings.settings.doNotDisturb = doNotDisturb;
+	} else {
+		[self signalError: dict];
 	}
 	
 	return res;
@@ -716,6 +698,8 @@
 	
 	if (res) {
 		self.allSettings.settings.defaultGreetingId = greetingId;
+	} else {
+		[self signalError: dict];
 	}
 	
 	return res;
@@ -758,7 +742,13 @@
 	
 	NSDictionary *resDict = [self postParameters: params toUrl: CALL_URL_STRING];
 	
-	return [[resDict objectForKey: @"ok"] boolValue];
+	BOOL res = [[resDict objectForKey: @"ok"] boolValue];
+	
+	if (!res) {
+		[self signalError: resDict];
+	}
+	
+	return res;
 }
 
 - (BOOL) cancelCallToNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId {
@@ -768,7 +758,13 @@
 
 	NSDictionary *dict = [self postParameters: params toUrl: CANCEL_CALL_URL_STRING];
 	
-	return [[dict objectForKey: @"ok"] boolValue];
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (!res) {
+		[self signalError: dict];
+	}
+	
+	return res;
 }
 
 

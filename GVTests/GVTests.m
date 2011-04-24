@@ -146,8 +146,6 @@
 		
 		BOOL enabledAlready = [self.voice isPhoneEnabled: phoneId];
 		
-		NSLog(@"Phone %@ is %@", num, (enabledAlready ? @"enabled" : @"disabled"));
-			  
 		if (enabledAlready) {
 			[phonesToDisable addObject: num];
 		} else {
@@ -281,19 +279,6 @@
 	}
 }
 
-- (void) testFetchGeneral {
-	BOOL res = [self.voice login];
-	STAssertTrue(res, @"Login failed");
-	
-	NSDictionary *dict = [self.voice fetchGeneral];
-	
-	STAssertNotNil(dict, @"Nil results fetching General");
-		
-	STAssertTrue([dict count] == 1, @"No results fetching General");
-	
-	STAssertNotNil([dict objectForKey: RAW_DATA], @"General string is null");
-}
-
 - (void) testFetchInbox {
 	BOOL res = [self.voice login];
 	
@@ -402,6 +387,14 @@
 	STAssertTrue([dict count] > 0, @"No results fetching Starred");
 }
 
+/* testCallNumberFromPhoneId and testCancelCallToNumberFromPhoneId don't 
+ * place nicely together. Run one or the other, but not both. If you do
+ * run both, one or the other is going to fail, because there will be two
+ * in-progress calls at the same time, which doesn't work.
+ *
+ * Set the 0 to a 1 to run this test.
+ */
+#if 0
 - (void) testCallNumberFromPhoneId {
 	BOOL res = [self.voice login];
 	
@@ -411,13 +404,18 @@
 	
 	STAssertTrue(res, @"Call failed");
 }
+#endif
 
+// Set this to 0 to not run this test.
+#if 1
 - (void) testCancelCallToNumberFromPhoneId {
 	BOOL res = [self.voice login];
 	
 	STAssertTrue(res, @"Login failed");
 	
 	res = [self.voice callNumber: TEST_DESTINATION_NUMBER fromPhoneId: 6];
+	
+	NSLog(@"EC: %d, RET: %@", self.voice.errorCode, self.voice.rawErrorText);
 	
 	STAssertTrue(res, @"Call failed");
 	
@@ -427,7 +425,7 @@
 	
 	STAssertTrue(res, @"Cancel call failed");
 }
-
+#endif
 
 //- (NSDictionary *) fetchRawPhonesInfo;
 
