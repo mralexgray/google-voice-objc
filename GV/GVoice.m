@@ -698,9 +698,40 @@
 	return self.allSettings.settings.greetings;
 }
 
+- (BOOL) callNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId {
+	NSString *idString = [NSString stringWithFormat: @"%d", phoneId];
+	
+	NSDictionary *dict = [self.allSettings.phones objectForKey: idString];
+	
+	if (!dict) {
+		// Set some error value
+		return NO;
+	}
+	
+	NSString *originPhoneNumber = [dict objectForKey: @"phoneNumber"];
+	NSString *phoneType = [NSString stringWithFormat: @"%d", [[dict objectForKey: @"type"] intValue]];
+	
+	NSString *params = [NSString stringWithFormat: @"outgoingNumber=%@&forwardingNumber=%@"
+						"&subscriberNumber=undefined&phoneType=%@&remember=0&_rnr_se=%@",
+						[destinationNumber urlEncoded],
+						[originPhoneNumber urlEncoded],
+						[phoneType urlEncoded],
+						[self.rnrSe urlEncoded]];
+	
+	NSDictionary *resDict = [self postParameters: params toUrl: CALL_URL_STRING];
+	
+	return [[resDict objectForKey: @"ok"] boolValue];
+}
 
+- (BOOL) cancelCallToNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId {
+	NSString *params = [NSString stringWithFormat: @"outgoingNumber=undefined&forwardingNumber=undefined&cancelType=%@&_rnr_se=%@",
+						[@"C2C" urlEncoded],
+						[self.rnrSe urlEncoded]];
 
-
+	NSDictionary *dict = [self postParameters: params toUrl: CANCEL_CALL_URL_STRING];
+	
+	return [[dict objectForKey: @"ok"] boolValue];
+}
 
 
 

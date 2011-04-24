@@ -402,6 +402,33 @@
 	STAssertTrue([dict count] > 0, @"No results fetching Starred");
 }
 
+- (void) testCallNumberFromPhoneId {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	res = [self.voice callNumber: TEST_DESTINATION_NUMBER fromPhoneId: 6];
+	
+	STAssertTrue(res, @"Call failed");
+}
+
+- (void) testCancelCallToNumberFromPhoneId {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	res = [self.voice callNumber: TEST_DESTINATION_NUMBER fromPhoneId: 6];
+	
+	STAssertTrue(res, @"Call failed");
+	
+	sleep(3);
+	
+	res = [self.voice cancelCallToNumber: TEST_DESTINATION_NUMBER fromPhoneId: 6];
+	
+	STAssertTrue(res, @"Cancel call failed");
+}
+
+
 //- (NSDictionary *) fetchRawPhonesInfo;
 
 

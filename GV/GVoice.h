@@ -64,6 +64,8 @@
 #define VOICE_MAIL_INFO_URL_STRING @"https://www.google.com/voice/settings/tab/voicemailsettings"
 #define GROUPS_SETTINGS_URL_STRING @"https://www.google.com/voice/settings/editGroup/"
 #define SMS_SEND_URL_STRING @"https://www.google.com/voice/sms/send/"
+#define CALL_URL_STRING @"https://www.google.com/voice/call/connect/"
+#define CANCEL_CALL_URL_STRING @"https://www.google.com/voice/call/cancel/"
 
 /**
  * Error codes that can come back from Google Voice.
@@ -425,6 +427,23 @@ typedef enum {
  * @returns YES or NO, if the change was made
  */
 - (BOOL) selectGreeting: (NSInteger) greetingId;
+
+/**
+ * Call a phone, attaching it to the specified phoneId.
+ * @param destinationNumber the phone number to call
+ * @param phoneId the Google Voice id of the phone you want to use for the call
+ * @returns YES or NO, if the operation succeeded or not
+ */
+- (BOOL) callNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId;
+
+/**
+ * Cancel a call between the destination number and the specified phoneId, that was begun
+ * with callNumber:fromPhoneId.
+ * @param destinationNumber the phone number to call
+ * @param phoneId the Google Voice id of the phone you want to use for the call
+ * @returns YES or NO, if the operation succeeded or not
+ */
+- (BOOL) cancelCallToNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId;
 
 // - (BOOL) applySettingsForGroup: (GVGroup *) group;
 // - (NSArray *) fetchGreetings;
