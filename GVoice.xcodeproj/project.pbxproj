@@ -46,6 +46,8 @@
 		1777C3971353707D0063DA4E /* GVoiceSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 1777C3951353707C0063DA4E /* GVoiceSettings.h */; };
 		1777C3981353707D0063DA4E /* GVoiceSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3961353707C0063DA4E /* GVoiceSettings.m */; };
 		1777C3991353707D0063DA4E /* GVoiceSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 1777C3961353707C0063DA4E /* GVoiceSettings.m */; };
+		17844A1E1364E86700358524 /* GVoiceGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 17844A1C1364E86700358524 /* GVoiceGroup.h */; };
+		17844A1F1364E86700358524 /* GVoiceGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 17844A1D1364E86700358524 /* GVoiceGroup.m */; };
 		17BAF82E1353353E00E880A8 /* NSString-GVoice.h in Headers */ = {isa = PBXBuildFile; fileRef = 17BAF82C1353353E00E880A8 /* NSString-GVoice.h */; };
 		17BAF82F1353353E00E880A8 /* NSString-GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BAF82D1353353E00E880A8 /* NSString-GVoice.m */; };
 		17BAF8301353353E00E880A8 /* NSString-GVoice.m in Sources */ = {isa = PBXBuildFile; fileRef = 17BAF82D1353353E00E880A8 /* NSString-GVoice.m */; };
@@ -103,6 +105,8 @@
 		1777C39213536FC20063DA4E /* GVoiceAllSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVoiceAllSettings.m; sourceTree = "<group>"; };
 		1777C3951353707C0063DA4E /* GVoiceSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVoiceSettings.h; sourceTree = "<group>"; };
 		1777C3961353707C0063DA4E /* GVoiceSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVoiceSettings.m; sourceTree = "<group>"; };
+		17844A1C1364E86700358524 /* GVoiceGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVoiceGroup.h; sourceTree = "<group>"; };
+		17844A1D1364E86700358524 /* GVoiceGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GVoiceGroup.m; sourceTree = "<group>"; };
 		17BAF82C1353353E00E880A8 /* NSString-GVoice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString-GVoice.h"; sourceTree = "<group>"; };
 		17BAF82D1353353E00E880A8 /* NSString-GVoice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString-GVoice.m"; sourceTree = "<group>"; };
 		17BAF8381353362B00E880A8 /* GVCredentials.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GVCredentials.h; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 				1777C39213536FC20063DA4E /* GVoiceAllSettings.m */,
 				1777C3951353707C0063DA4E /* GVoiceSettings.h */,
 				1777C3961353707C0063DA4E /* GVoiceSettings.m */,
+				17844A1C1364E86700358524 /* GVoiceGroup.h */,
+				17844A1D1364E86700358524 /* GVoiceGroup.m */,
 			);
 			name = GVoice;
 			path = GV;
@@ -261,6 +267,7 @@
 				1777C38F13536E350063DA4E /* SBJsonWriter.h in Headers */,
 				1777C39313536FC30063DA4E /* GVoiceAllSettings.h in Headers */,
 				1777C3971353707D0063DA4E /* GVoiceSettings.h in Headers */,
+				17844A1E1364E86700358524 /* GVoiceGroup.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,6 +383,7 @@
 				1777C39013536E350063DA4E /* SBJsonWriter.m in Sources */,
 				1777C39413536FC30063DA4E /* GVoiceAllSettings.m in Sources */,
 				1777C3981353707D0063DA4E /* GVoiceSettings.m in Sources */,
+				17844A1F1364E86700358524 /* GVoiceGroup.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
