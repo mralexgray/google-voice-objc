@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocSetNodes version="1.0">
+  <TOC>
+    <Node>
+      <Name>Root</Name>
+      <Path>index.html</Path>
+      <Subnodes>
+       <Node>
+        <Name>Main Page</Name>
+        <Path>index.html</Path>
+       </Node>
+       <Node>
+        <Name>Class List</Name>
+        <Path>annotated.html</Path>
+        <Subnodes>
+         <Node>
+          <Name>GVoice</Name>
+          <Path>interface_g_voice.html</Path>
+         </Node>
+         <Node>
+          <Name>GVoiceAllSettings</Name>
+          <Path>interface_g_voice_all_settings.html</Path>
+         </Node>
+         <Node>
+          <Name>GVoiceSettings</Name>
+          <Path>interface_g_voice_settings.html</Path>
+         </Node>
+         <Node>
+          <Name>NSString(GVoice)</Name>
+          <Path>interface_n_s_string_07_g_voice_08.html</Path>
+         </Node>
+         <Node>
+          <Name>ParsingUtils</Name>
+          <Path>interface_parsing_utils.html</Path>
+         </Node>
+        </Subnodes>
+       </Node>
+       <Node>
+        <Name>Class Index</Name>
+        <Path>classes.html</Path>
+       </Node>
+       <Node>
+        <Name>Class Members</Name>
+        <Path>functions.html</Path>
+       </Node>
+       <Node>
+        <Name>File List</Name>
+        <Path>files.html</Path>
+        <Subnodes>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/GVoice.h</Name>
+          <Path>_g_voice_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/GVoiceAllSettings.h</Name>
+          <Path>_g_voice_all_settings_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/GVoiceSettings.h</Name>
+          <Path>_g_voice_settings_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/NSString-GVoice.h</Name>
+          <Path>_n_s_string-_g_voice_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/ParsingUtils.h</Name>
+          <Path>_parsing_utils_8h.html</Path>
+         </Node>
+        </Subnodes>
+       </Node>
+       <Node>
+        <Name>File Members</Name>
+        <Path>globals.html</Path>
+       </Node>
+      </Subnodes>
+    </Node>
+  </TOC>
+</DocSetNodes>
