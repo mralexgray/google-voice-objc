@@ -477,15 +477,10 @@ typedef enum {
  */
 - (GVoiceGroup *) group: (NSString *) groupId;
 
-// - (NSArray *) fetchGreetings;
-// - (BOOL) isLoggedIn;
-
-
-
-
-
-
-
-
+/**
+ * Checks to see if the user is currently logged in ot not.
+ * @returns YES or NO, if they are logged in or not.
+ */
+- (BOOL) isLoggedIn;
 
 @end

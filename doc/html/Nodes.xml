@@ -22,6 +22,10 @@
           <Path>interface_g_voice_all_settings.html</Path>
          </Node>
          <Node>
+          <Name>GVoiceGroup</Name>
+          <Path>interface_g_voice_group.html</Path>
+         </Node>
+         <Node>
           <Name>GVoiceSettings</Name>
           <Path>interface_g_voice_settings.html</Path>
          </Node>
@@ -54,6 +58,10 @@
          <Node>
           <Name>/Users/jgibson/src/GV/GV/GVoiceAllSettings.h</Name>
           <Path>_g_voice_all_settings_8h.html</Path>
+         </Node>
+         <Node>
+          <Name>/Users/jgibson/src/GV/GV/GVoiceGroup.h</Name>
+          <Path>_g_voice_group_8h.html</Path>
          </Node>
          <Node>
           <Name>/Users/jgibson/src/GV/GV/GVoiceSettings.h</Name>

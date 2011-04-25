@@ -461,6 +461,19 @@
 	}
 }
 
+- (void) testIsLoggedIn {
+	BOOL res = [self.voice isLoggedIn];
+	
+	STAssertFalse(res, @"We aren't logged in");
+	
+	res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	res = [self.voice isLoggedIn];
+	
+	STAssertTrue(res, @"We are logged in");
+}
 
 
 

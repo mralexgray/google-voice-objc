@@ -294,6 +294,7 @@
 	
 	NSData *response = [NSURLConnection sendSynchronousRequest: request returningResponse: &resp error: &err];
 	NSString *retString = nil;
+	NSDictionary *dict = nil;
 	
 	if (err) {
 		if (self.logToConsole) {
@@ -306,6 +307,22 @@
 		
 		if (statusCode == 200) {
 			retString = [[[NSString alloc] initWithData: response encoding: NSUTF8StringEncoding] autorelease];
+			
+			if (retString) {
+				if (asDictionary) {
+					NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: retString
+																  startingWith: @"<json><![CDATA["
+																	endingWith: @"]]></json>"
+															   includingTokens: NO];
+					
+					SBJsonParser *json = [[SBJsonParser alloc] init];
+					dict = [json objectWithString: jsonSubStr];
+					
+					[json release];
+				} else {
+					dict = [NSDictionary dictionaryWithObject: retString forKey: RAW_DATA];
+				}
+			}
 		} else if (statusCode == 301 ||
 				   statusCode == 302 ||
 				   statusCode == 303 ||
@@ -323,24 +340,6 @@
 	}
 	
 	[request release];
-	
-	NSDictionary *dict;
-	
-	if (retString) {
-		if (asDictionary) {
-			NSString *jsonSubStr = [ParsingUtils removeTextSurrounding: retString
-														  startingWith: @"<json><![CDATA["
-															endingWith: @"]]></json>"
-													   includingTokens: NO];
-			
-			SBJsonParser *json = [[SBJsonParser alloc] init];
-			dict = [json objectWithString: jsonSubStr];
-			
-			[json release];
-		} else {
-			dict = [NSDictionary dictionaryWithObject: retString forKey: RAW_DATA];
-		}
-	}
 	
 	if (!dict || [dict count] == 0) {
 		self.errorCode = Unknown;
@@ -821,12 +820,10 @@
 	return res;	 
 }
 
+- (BOOL) isLoggedIn {
+	NSDictionary *dict = [self fetchRecent];
 
-
-
-
-
-
-
+	return dict != nil;
+}
 
 @end

@@ -74,6 +74,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       <li><a href="#index_g"><span>g</span></a></li>
       <li><a href="#index_i"><span>i</span></a></li>
       <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_n"><span>n</span></a></li>
       <li><a href="#index_p"><span>p</span></a></li>
       <li><a href="#index_r"><span>r</span></a></li>
       <li><a href="#index_s"><span>s</span></a></li>
@@ -115,6 +116,15 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <li>credits
 : <a class="el" href="interface_g_voice_settings.html#a696987e266bd4fc6a584fbd61200368f">GVoiceSettings</a>
 </li>
+<li>customDirectConnect
+: <a class="el" href="interface_g_voice_group.html#a7e1e6643bd81100efc2d15921d34ff11">GVoiceGroup</a>
+</li>
+<li>customForwarding
+: <a class="el" href="interface_g_voice_group.html#a249a81218a12eb501fd07b56b6eccc1b">GVoiceGroup</a>
+</li>
+<li>customGreeting
+: <a class="el" href="interface_g_voice_group.html#a4b8fe3a6011d75408faad00a72b324e9">GVoiceGroup</a>
+</li>
 </ul>
 
 
@@ -127,10 +137,14 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 : <a class="el" href="interface_g_voice_settings.html#a44ab9c0a5a2a543481589e9b0af27d1c">GVoiceSettings</a>
 </li>
 <li>directConnect
-: <a class="el" href="interface_g_voice_settings.html#a5ed6cfd87d78ded33acaeb3e134f5265">GVoiceSettings</a>
+: <a class="el" href="interface_g_voice_group.html#a3f0f7068e734774e89b7b11f442cd81d">GVoiceGroup</a>
+, <a class="el" href="interface_g_voice_settings.html#a5ed6cfd87d78ded33acaeb3e134f5265">GVoiceSettings</a>
 </li>
 <li>directConnectEnabled
 : <a class="el" href="interface_g_voice.html#a0a1acf6b9f5b12f3c804f6a4be1bd58e">GVoice</a>
+</li>
+<li>disabledForwardingIds
+: <a class="el" href="interface_g_voice_group.html#a136a7d182d7d4b653a20893851732985">GVoiceGroup</a>
 </li>
 <li>disabledIds
 : <a class="el" href="interface_g_voice_settings.html#a443d82e7bd3c51f64042ebbdf36a26e9">GVoiceSettings</a>
@@ -249,25 +263,43 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_g"></a>- g -</h3><ul>
+<li>greetingId
+: <a class="el" href="interface_g_voice_group.html#ad068b5dd7e037b0266f48a721e82c906">GVoiceGroup</a>
+</li>
 <li>greetings
 : <a class="el" href="interface_g_voice_settings.html#a553559ad5f72444be7e2e7306beec45b">GVoiceSettings</a>
 </li>
+<li>group:
+: <a class="el" href="interface_g_voice.html#aaf38727a2f1ebf9696cd10b0fb6f3291">GVoice</a>
+</li>
 <li>groupList
-: <a class="el" href="interface_g_voice_settings.html#ad507ab143edb4f7532ca1bdb48780988">GVoiceSettings</a>
+: <a class="el" href="interface_g_voice.html#ab15b502e860f61a47191e3240dea01bb">GVoice</a>
+, <a class="el" href="interface_g_voice_settings.html#ad507ab143edb4f7532ca1bdb48780988">GVoiceSettings</a>
 </li>
 <li>groups
-: <a class="el" href="interface_g_voice_settings.html#afdfbf618225f9519c1adb0db8c16d76e">GVoiceSettings</a>
+: <a class="el" href="interface_g_voice.html#a0f4eef214e2749fef3432ac9cfed3dcc">GVoice</a>
+, <a class="el" href="interface_g_voice_settings.html#a1e265d3df2a49d1443fa4a2a3f3ae492">GVoiceSettings</a>
+</li>
+<li>groupWithGroup:
+: <a class="el" href="interface_g_voice_group.html#a506d73f38308a443d25a5580918605c1">GVoiceGroup</a>
 </li>
 </ul>
 
 
 <h3><a class="anchor" id="index_i"></a>- i -</h3><ul>
+<li>id
+: <a class="el" href="interface_g_voice_group.html#ab24854df55f91341592c3d6b76a9542c">GVoiceGroup</a>
+</li>
 <li>initWithDictionary:
 : <a class="el" href="interface_g_voice_all_settings.html#a03815edbbc866780d02c8c457d61764f">GVoiceAllSettings</a>
 , <a class="el" href="interface_g_voice_settings.html#a45c06e697888ddb2c82ad89354550f89">GVoiceSettings</a>
+, <a class="el" href="interface_g_voice_group.html#a4c958aa4cade159bd52d4a10d4388343">GVoiceGroup</a>
 </li>
 <li>initWithUser:password:source:accountType:
 : <a class="el" href="interface_g_voice.html#a05a8a136164021d6d151fe51e85569b1">GVoice</a>
+</li>
+<li>isLoggedIn
+: <a class="el" href="interface_g_voice.html#af74c2590d64af138290798c58cafcb6f">GVoice</a>
 </li>
 <li>isPhoneEnabled:
 : <a class="el" href="interface_g_voice.html#a7f91960e0cc1b7903cc5c25f58c87afd">GVoice</a>
@@ -287,6 +319,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </li>
 <li>logToConsole
 : <a class="el" href="interface_g_voice.html#a43a80d9654ee5fcd828ca6e6dfb24a36">GVoice</a>
+</li>
+</ul>
+
+
+<h3><a class="anchor" id="index_n"></a>- n -</h3><ul>
+<li>name
+: <a class="el" href="interface_g_voice_group.html#aaa52aab948828d8cf30d2ddf66bfada2">GVoiceGroup</a>
 </li>
 </ul>
 
@@ -318,6 +357,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
+<li>saveSettingsForGroup:
+: <a class="el" href="interface_g_voice.html#a5b6ef2261d2e32052ae4a28057958833">GVoice</a>
+</li>
 <li>screenBehavior
 : <a class="el" href="interface_g_voice_settings.html#ad5e5c26d7a2bf80507aa4c0cb09c19f7">GVoiceSettings</a>
 </li>
@@ -387,7 +429,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 19:16:58 for GVoice by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 25 2011 13:05:07 for GVoice by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

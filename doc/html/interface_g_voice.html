@@ -108,6 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a02363de62dc74b950a1bd08865515aed">selectGreeting:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a0b10d8c8c951aed6fd1b61bce3a056a0">callNumber:fromPhoneId:</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#aad3023f882d0f6b200b3854507ccf919">cancelCallToNumber:fromPhoneId:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#a5b6ef2261d2e32052ae4a28057958833">saveSettingsForGroup:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_g_voice_group.html">GVoiceGroup</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#aaf38727a2f1ebf9696cd10b0fb6f3291">group:</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_g_voice.html#af74c2590d64af138290798c58cafcb6f">isLoggedIn</a></td></tr>
 <tr><td colspan="2"><h2><a name="properties"></a>
 Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="_g_voice_8h.html#af1faa1eb1e878558fb13cc7a25b57b0d">GVoiceAccountType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a73c6eaaf355464db9a567c9ad7a23735">accountType</a></td></tr>
@@ -121,6 +124,8 @@ Properties</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a0a1acf6b9f5b12f3c804f6a4be1bd58e">directConnectEnabled</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a8d8728b04620414a5131c50a520f6ef2">doNotDisturbEnabled</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a763a2e4b7e80e36fd600324940a7ef33">rawErrorText</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#ab15b502e860f61a47191e3240dea01bb">groupList</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">NSDictionary *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_g_voice.html#a0f4eef214e2749fef3432ac9cfed3dcc">groups</a></td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a0b10d8c8c951aed6fd1b61bce3a056a0"></a><!-- doxytag: member="GVoice::callNumber:fromPhoneId:" ref="a0b10d8c8c951aed6fd1b61bce3a056a0" args="(NSString *destinationNumber,[fromPhoneId] NSInteger phoneId)" -->
@@ -811,6 +816,31 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aaf38727a2f1ebf9696cd10b0fb6f3291"></a><!-- doxytag: member="GVoice::group:" ref="aaf38727a2f1ebf9696cd10b0fb6f3291" args="(NSString *groupId)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="interface_g_voice_group.html">GVoiceGroup</a> *) group: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>groupId</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns an immutable copy of the requested group. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">groupId</td><td>the id of the group to fetch </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>an imutable copy of the reqested group </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a05a8a136164021d6d151fe51e85569b1"></a><!-- doxytag: member="GVoice::initWithUser:password:source:accountType:" ref="a05a8a136164021d6d151fe51e85569b1" args="(NSString *user,[password] NSString *password,[source] NSString *source,[accountType] GVoiceAccountType accountType)" -->
 <div class="memitem">
 <div class="memproto">
@@ -861,6 +891,24 @@ Properties</h2></td></tr>
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="_g_voice_8h.html#af1faa1eb1e878558fb13cc7a25b57b0d">GVoiceAccountType</a> </dd>
 <dd>
 <a href="http://code.google.com/apis/accounts/docs/AuthForInstalledApps.html#Request">http://code.google.com/apis/accounts/docs/AuthForInstalledApps.html#Request</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af74c2590d64af138290798c58cafcb6f"></a><!-- doxytag: member="GVoice::isLoggedIn" ref="af74c2590d64af138290798c58cafcb6f" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) isLoggedIn </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Checks to see if the user is currently logged in ot not. </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>YES or NO, if they are logged in or not. </dd></dl>
 
 </div>
 </div>
@@ -931,6 +979,31 @@ Properties</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Logs in to Google Voice, including a CAPTCHA response. This will only be necessary if you had enough failed login attempts that Google threw back a CAPTCHA challenge. </p>
+
+</div>
+</div>
+<a class="anchor" id="a5b6ef2261d2e32052ae4a28057958833"></a><!-- doxytag: member="GVoice::saveSettingsForGroup:" ref="a5b6ef2261d2e32052ae4a28057958833" args="(GVoiceGroup *group)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) saveSettingsForGroup: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_g_voice_group.html">GVoiceGroup</a> *)&#160;</td>
+          <td class="paramname"><em>group</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Sends local group changes to the server. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">group</td><td>the group to update </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>YES or NO, if the operation succeded or not </dd></dl>
 
 </div>
 </div>
@@ -1062,7 +1135,7 @@ Properties</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Convenience accesc to allSettings.settings.doNotDisturb </p>
+<p>Convenience access to allSettings.settings.doNotDisturb </p>
 
 </div>
 </div>
@@ -1077,6 +1150,34 @@ Properties</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>The result of some sort of error from GV. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab15b502e860f61a47191e3240dea01bb"></a><!-- doxytag: member="GVoice::groupList" ref="ab15b502e860f61a47191e3240dea01bb" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray*) groupList<code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Convenience access to allSettings.settings.groupList </p>
+
+</div>
+</div>
+<a class="anchor" id="a0f4eef214e2749fef3432ac9cfed3dcc"></a><!-- doxytag: member="GVoice::groups" ref="a0f4eef214e2749fef3432ac9cfed3dcc" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSDictionary*) groups<code> [read, assign]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Convenience access to allSettings.settings.groups </p>
 
 </div>
 </div>
@@ -1171,7 +1272,7 @@ Properties</h2></td></tr>
 </iframe>
 </div>
 
-<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 19:16:58 for GVoice by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Apr 25 2011 13:05:07 for GVoice by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
