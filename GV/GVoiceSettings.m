@@ -28,6 +28,7 @@
  */
 
 #import "GVoiceSettings.h"
+#import "GVoiceGroup.h"
 
 @implementation GVoiceSettings
 
@@ -75,7 +76,6 @@
 		self.emailNotificationAddress = [dict objectForKey: @"emailNotificationAddress"];
 		self.greetings = [dict objectForKey: @"greetings"];
 		self.groupList = [dict objectForKey: @"groupList"];
-		self.groups = [dict objectForKey: @"groups"];
 		self.language = [dict objectForKey: @"language"];
 		self.primaryDid = [dict objectForKey: @"primaryDid"];
 		self.screenBehavior = [[dict objectForKey: @"screenBehavior"] integerValue];
@@ -87,6 +87,20 @@
 		self.timezone = [dict objectForKey: @"timezone"];
 		self.useDidAsCallerId = [[dict objectForKey: @"useDidAsCallerId"] boolValue];
 		self.useDidAsSource = [[dict objectForKey: @"useDidAsSource"] boolValue];
+		
+		NSMutableDictionary *groups = [NSMutableDictionary dictionary];
+		NSDictionary *rawGroups = [dict objectForKey: @"groups"];
+		
+		for (NSString *key in rawGroups) {
+			NSDictionary *groupDict = [rawGroups objectForKey: key];
+			
+			GVoiceGroup *group = [[GVoiceGroup alloc] initWithDictionary: groupDict];
+			[groups setValue: group forKey: key];
+			
+			[group release];
+		}
+		
+		self.groups = groups;
 	}
 	
 	return self;

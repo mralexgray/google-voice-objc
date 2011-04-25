@@ -63,17 +63,32 @@
 		self.directConnect = [[dict objectForKey: @"directConnect"] boolValue];
 		self.greetingId = [[dict objectForKey: @"greetingId"] integerValue];
 		self.disabledForwardingIds = [dict objectForKey: @"disabledForwardingIds"];
-		
-//		NSMutableArray *disabledForwardingIds = [NSMutableArray array];
-//		NSArray *ids = [dict objectForKey: @"disabledForwardingIds"];
-//		
-//		for (id i in ids) {
-//			// Create a dict and stuff it in.
-//		}
-//		
-//		self.disabledForwardingIds = disabledForwardingIds;
 	}
 	
 	return self;
 }
+
+- (NSString *) description {
+	NSString *desc = [NSString stringWithFormat: @"Group %@, Name: %@", self.id, self.name];
+	
+	return desc;
+}
+
++ (id) groupWithGroup:(GVoiceGroup *)group {
+	GVoiceGroup *newGroup = [[[GVoiceGroup alloc] init] autorelease];
+	
+	newGroup.id = group.id;
+	newGroup.name = group.name;
+	newGroup.customForwarding = group.customForwarding;
+	newGroup.customGreeting = group.customGreeting;
+	newGroup.customDirectConnect = group.customDirectConnect;
+	newGroup.directConnect = group.directConnect;
+	
+	NSDictionary *disGroups = [group.disabledForwardingIds copy];
+	
+	newGroup.disabledForwardingIds = disGroups;
+	
+	return newGroup;
+}
+
 @end

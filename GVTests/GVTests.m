@@ -427,6 +427,43 @@
 }
 #endif
 
+- (void) testSaveSettingsForGroup {
+	BOOL res = [self.voice login];
+	
+	STAssertTrue(res, @"Login failed");
+	
+	NSArray *groups = self.voice.groupList;
+	
+	NSString *groupId = [groups objectAtIndex: 0];
+	
+	if (groupId) {
+		GVoiceGroup *group = [self.voice group: groupId];
+	
+		if (group) {
+			group.directConnect = !group.directConnect;
+		}
+		
+		res = [self.voice saveSettingsForGroup: group];
+		
+		STAssertTrue(res, @"Saving group failed");
+		
+		if (res) {
+			GVoiceGroup *alteredGroup = [self.voice group: groupId];
+			
+			STAssertEquals(alteredGroup.directConnect, group.directConnect, @"Change wasn't reflected locally");
+			
+			group.directConnect = !group.directConnect;
+			
+			res = [self.voice saveSettingsForGroup: group];
+			
+			STAssertTrue(res, @"Re-saving group failed");
+		}
+	}
+}
+
+
+
+
 //- (NSDictionary *) fetchRawPhonesInfo;
 
 

@@ -52,7 +52,7 @@
     NSString *_emailNotificationAddress;
 	NSArray *_greetings;
     NSArray *_groupList;
-	NSArray *_groups;
+	NSDictionary *_groups;
 	NSString *_language;
 	NSString *_primaryDid;
 	NSInteger _screenBehavior;
@@ -79,7 +79,7 @@
 @property (nonatomic, retain) NSString *emailNotificationAddress;
 @property (nonatomic, retain) NSArray *greetings;
 @property (nonatomic, retain) NSArray *groupList;
-@property (nonatomic, retain) NSArray *groups;
+@property (nonatomic, retain) NSDictionary *groups;
 @property (nonatomic, retain) NSString *language;
 @property (nonatomic, retain) NSString *primaryDid;
 @property (nonatomic, assign) NSInteger screenBehavior;

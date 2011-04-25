@@ -720,6 +720,25 @@
 	return self.allSettings.settings.greetings;
 }
 
+- (NSArray *) groupList {
+	return [NSArray arrayWithArray: self.allSettings.settings.groupList];
+}
+
+- (NSDictionary *) groups {
+	return [NSDictionary dictionaryWithDictionary: self.allSettings.settings.groups];
+}
+
+- (GVoiceGroup *) group: (NSString *) groupId {
+	GVoiceGroup *groupCopy;
+	GVoiceGroup *group = [self.allSettings.settings.groups objectForKey: groupId];
+	
+	if (group) {
+		groupCopy = [GVoiceGroup groupWithGroup: group];
+	}
+	
+	return groupCopy;
+}
+
 - (BOOL) callNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId {
 	NSString *idString = [NSString stringWithFormat: @"%d", phoneId];
 	
@@ -767,7 +786,40 @@
 	return res;
 }
 
-
+- (BOOL) saveSettingsForGroup: (GVoiceGroup *) group {
+	NSString *disabledPhoneIds = [[group.disabledForwardingIds allKeys] componentsJoinedByString: @"&disabledPhoneIds="];
+	
+	if (disabledPhoneIds) {
+		disabledPhoneIds = [NSString stringWithFormat: @"&disabledPhoneIds=%@", disabledPhoneIds];
+	}
+	
+	NSString *paramString = [NSString stringWithFormat: @"isCustomGreeting=%d&greetingId=%d%@&directConnect=%d"
+							 "&isCustomDirectConnect=%d&isCustomForwarding=%d&id=%@&_rnr_se=%@",
+							 group.customGreeting,
+							 group.greetingId,
+							 disabledPhoneIds,
+							 group.directConnect,
+							 group.customDirectConnect,
+							 group.customForwarding,
+							 [group.id urlEncoded],
+							 [self.rnrSe urlEncoded]];
+	
+	
+	NSDictionary *dict = [self postParameters: paramString toUrl: GROUPS_SETTINGS_URL_STRING];
+	
+	BOOL res = [[dict objectForKey: @"ok"] boolValue];
+	
+	if (res) {
+		NSMutableDictionary *groups = [self.allSettings.settings.groups mutableCopy];
+		[groups setValue: group forKey: group.id];
+		
+		self.allSettings.settings.groups = groups;
+	} else {
+		[self signalError: dict];
+	}
+	
+	return res;	 
+}
 
 
 

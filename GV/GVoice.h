@@ -28,6 +28,7 @@
 */
 
 #import <Foundation/Foundation.h>
+#import "GVoiceGroup.h"
 
 @class GVoiceAllSettings;
 
@@ -187,7 +188,7 @@ typedef enum {
 @property (readonly) BOOL directConnectEnabled;
 
 /**
- * Convenience accesc to allSettings.settings.doNotDisturb
+ * Convenience access to allSettings.settings.doNotDisturb
  */
 @property (readonly) BOOL doNotDisturbEnabled;
 
@@ -196,6 +197,16 @@ typedef enum {
  * from GV here as a debugging aid.
  */
 @property (nonatomic, retain) NSString *rawErrorText;
+
+/**
+ * Convenience access to allSettings.settings.groupList
+ */
+@property (readonly) NSArray *groupList;
+
+/**
+ * Convenience access to allSettings.settings.groups
+ */
+@property (readonly) NSDictionary *groups;
 
 /**
  * The designated initializer.
@@ -452,7 +463,20 @@ typedef enum {
  */
 - (BOOL) cancelCallToNumber: (NSString *) destinationNumber fromPhoneId: (NSInteger) phoneId;
 
-// - (BOOL) applySettingsForGroup: (GVGroup *) group;
+/**
+ * Sends local group changes to the server.
+ * @param group the group to update
+ * @returns YES or NO, if the operation succeded or not
+ */
+- (BOOL) saveSettingsForGroup: (GVoiceGroup *) group;
+
+/**
+ * Returns an immutable copy of the requested group.
+ * @param groupId the id of the group to fetch
+ * @returns an imutable copy of the reqested group
+ */
+- (GVoiceGroup *) group: (NSString *) groupId;
+
 // - (NSArray *) fetchGreetings;
 // - (BOOL) isLoggedIn;
 

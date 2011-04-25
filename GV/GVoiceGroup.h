@@ -40,7 +40,7 @@
 	NSString *_id;
 	NSString *_name;
 	BOOL _customForwarding;
-	NSArray *_disabledForwardingIds;
+	NSDictionary *_disabledForwardingIds;
 	BOOL _customDirectConnect;
 	BOOL _directConnect;
 	BOOL _customGreeting;
@@ -50,7 +50,7 @@
 @property (nonatomic, retain) NSString *id;
 @property (nonatomic, retain) NSString *name;
 @property (nonatomic, assign) BOOL customForwarding;
-@property (nonatomic, retain) NSArray *disabledForwardingIds;
+@property (nonatomic, retain) NSDictionary *disabledForwardingIds;
 @property (nonatomic, assign) BOOL customDirectConnect;
 @property (nonatomic, assign) BOOL directConnect;
 @property (nonatomic, assign) BOOL customGreeting;
@@ -64,4 +64,6 @@
  * @param dict the dictionary to initialize this object with
  */
 - (id) initWithDictionary: (NSDictionary *) dict;
+
++ (id) groupWithGroup: (GVoiceGroup *) group;
 @end
