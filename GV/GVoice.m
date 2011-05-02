@@ -728,7 +728,7 @@
 }
 
 - (GVoiceGroup *) group: (NSString *) groupId {
-	GVoiceGroup *groupCopy;
+	GVoiceGroup *groupCopy = nil;
 	GVoiceGroup *group = [self.allSettings.settings.groups objectForKey: groupId];
 	
 	if (group) {
