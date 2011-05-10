@@ -52,27 +52,27 @@
         <Path>files.html</Path>
         <Subnodes>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/GVoice.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/GVoice.h</Name>
           <Path>_g_voice_8h.html</Path>
          </Node>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/GVoiceAllSettings.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/GVoiceAllSettings.h</Name>
           <Path>_g_voice_all_settings_8h.html</Path>
          </Node>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/GVoiceGroup.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/GVoiceGroup.h</Name>
           <Path>_g_voice_group_8h.html</Path>
          </Node>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/GVoiceSettings.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/GVoiceSettings.h</Name>
           <Path>_g_voice_settings_8h.html</Path>
          </Node>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/NSString-GVoice.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/NSString-GVoice.h</Name>
           <Path>_n_s_string-_g_voice_8h.html</Path>
          </Node>
          <Node>
-          <Name>/Users/jgibson/src/GV/GV/ParsingUtils.h</Name>
+          <Name>/Users/jgibson/src/GVoice/GV/ParsingUtils.h</Name>
           <Path>_parsing_utils_8h.html</Path>
          </Node>
         </Subnodes>
