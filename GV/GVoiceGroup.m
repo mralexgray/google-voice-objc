@@ -88,6 +88,8 @@
 	
 	newGroup.disabledForwardingIds = disGroups;
 	
+	[disGroups release];
+	
 	return newGroup;
 }
 

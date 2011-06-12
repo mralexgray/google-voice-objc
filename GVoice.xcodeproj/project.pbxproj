@@ -317,7 +317,7 @@
 		17176E2F1352984F00C11809 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				ORGANIZATIONNAME = "Spectrum K12 School Solutions, Inc.";
+				ORGANIZATIONNAME = "joeygibson.com";
 			};
 			buildConfigurationList = 17176E321352984F00C11809 /* Build configuration list for PBXProject "GVoice" */;
 			compatibilityVersion = "Xcode 3.2";

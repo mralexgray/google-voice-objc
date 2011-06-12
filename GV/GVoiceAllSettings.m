@@ -42,7 +42,11 @@
 	if (self) {
 		self.phoneList = [dict objectForKey: @"phoneList"];
 		self.phones = [dict objectForKey: @"phones"];
-		self.settings = [[GVoiceSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
+		
+		GVoiceSettings *settings = [[GVoiceSettings alloc] initWithDictionary: [dict objectForKey: @"settings"]];
+		self.settings = settings;
+		
+		[settings release];
 	}
 	
 	return self;

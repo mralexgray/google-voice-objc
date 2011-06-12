@@ -493,6 +493,8 @@
 		GVoiceAllSettings *settings = [[GVoiceAllSettings alloc] initWithDictionary: dict];
 		
 		self.allSettings = settings;
+		
+		[settings release];
 	}
 	
 	return self.allSettings;
@@ -514,6 +516,8 @@
 		[disabledPhones setValue: [NSNumber numberWithBool: YES] forKey: [NSString stringWithFormat: @"%d", phoneId]];
 		
 		self.allSettings.settings.disabledIds = disabledPhones;
+		
+		[disabledPhones release];
 	} else {
 		[self signalError: resDict];
 	}
@@ -535,6 +539,8 @@
 		[disabledPhones removeObjectForKey: num];
 		
 		self.allSettings.settings.disabledIds = disabledPhones;
+		
+		[disabledPhones release];
 	} else {
 		[self signalError: resDict];
 	}
@@ -813,6 +819,8 @@
 		[groups setValue: group forKey: group.id];
 		
 		self.allSettings.settings.groups = groups;
+		
+		[groups release];
 	} else {
 		[self signalError: dict];
 	}
